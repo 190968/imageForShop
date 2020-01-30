@@ -38,6 +38,6 @@ app.get("/bob", function(req,res) {
 app.listen({port:process.env.port||5000}, (err)=>{
   if ( err ) { return  console.log("Error");
   } else {
-      console.log("http server runing on 5000 port");
+      console.log("http server runing ");
   }
 });
