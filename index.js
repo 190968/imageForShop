@@ -33,6 +33,6 @@ app.get("/bob", function(req,res) {
      
       
   
-const port = process.env.PORT || 5000;
 
-http.createServer(app).listen(port, function(){console.log("Server running on 5000 port")});
+
+http.createServer(app).listen({port: process.env.PORT || 500});
