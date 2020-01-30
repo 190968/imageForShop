@@ -35,4 +35,9 @@ app.get("/bob", function(req,res) {
   
 
 
-http.createServer(app).listen({port: process.env.PORT || 500});
+app.listen({port:process.env.port||5000}, (err)=>{
+  if ( err ) { return  console.log("Error");
+  } else {
+      console.log("http server runing on 5000 port");
+  }
+});
