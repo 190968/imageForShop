@@ -6,6 +6,7 @@ var app = express();
 
 app.use(cors());
 
+var port = process.env.PORT||5000;
 
 app.get("/",function(req,res) {
     res.send("Hello world");
@@ -37,7 +38,7 @@ app.get("/bob", function(req,res) {
   
 
 
-app.listen({port:process.env.port||5000}, (err)=>{
+app.listen(port, (err)=>{
   if ( err ) { return  console.log("Error");
   } else {
       console.log("http server runing ");
