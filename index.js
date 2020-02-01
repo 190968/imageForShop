@@ -8,11 +8,9 @@ app.use(cors());
 var port = process.env.PORT||5000;
 
 app.get("/",function(req,res) {
-  console.log(req.query);
+ 
    let s =  fs.readdirSync((__dirname + "/items"));
-   let n = req.query.number || 0;
-   let im = s[n].replace(".jpg","");
-   let next = s[1].replace(".jpg","");
+  
    console.log(s);
    
     res.send(`<!doctype html>
@@ -20,12 +18,13 @@ app.get("/",function(req,res) {
     <head>
     <style>
       a {
+        box-shadow:inset 0 0 5px 5px #ddd; 
         margin: 20px;      
         display: inline-block;
         padding: 5px 20px;
-        border: 1px solid #000;
+        border: 2px solid #000;
         border-radius: 80px;
-        font: 400 40px/40px "Arial",sans-serif;
+        font: 400 40px/45px "Arial",sans-serif;
         text-decoration: none;
         color: #000;
       }
@@ -61,21 +60,18 @@ app.get("/",function(req,res) {
    
 });
 
-app.get("/items",function(req,res) {
-  console.log(req.query.number);
+app.get("/items",function(req,res) { 
   let brand = req.query.brand;
-   let s =  fs.readdirSync((__dirname + `/items/${brand}`));
-   let n = req.query.number || 0;
-  
-   let im = s[n].replace(".jpg","");
-   
-   console.log(s);
-   
-    res.send(`<!doctype html>
+  let s =  fs.readdirSync((__dirname + `/items/${brand}`));
+  let num = req.query.number || 0;
+  let n = num < 0 ? 0 : num > s.length-1 ? s.length-1 : num; 
+  let im = s[n].replace(".jpg","");   
+  res.send(`<!doctype html>
     <html>
     <head>
     <style>
-      a {       
+      a {
+        box-shadow:inset 0 0 5px 5px #ddd;        
         display: inline-block;
         padding: 5px 10px;
         border: 1px solid #000;
@@ -90,7 +86,7 @@ app.get("/items",function(req,res) {
       }
       b {
         display: inline-block;
-        width: 200px;
+        width: 300px;
         font-size: 30px;
       }
       @media screen and (max-width: 480px) {
