@@ -157,7 +157,7 @@
     "id": 15,
     "cost": 85,
     "brand": "adidas",
-    "model": "Enegy_Falcon",
+    "model": "Enegy_falcon",
     "gender": "men",
     "size": "39,41,45",
     "color": "black",
@@ -168,7 +168,7 @@
     "id": 16,
     "cost": 89,
     "brand": "adidas",
-    "model": "Enegy_Falcon",
+    "model": "Enegy_falcon",
     "gender": "men",
     "size": "39,41,42",
     "color": "grey",
@@ -179,7 +179,7 @@
     "id": 17,
     "cost": 84,
     "brand": "adidas",
-    "model": "Enegy_Falcon",
+    "model": "Enegy_falcon",
     "gender": "men",
     "size": "39,41,45",
     "color": "red",
@@ -2517,5 +2517,16 @@
     "color": "blue",
     "item": "clothing",
     "rev": "This New Balance Impact Short Sleeve T Shirt is crafted with short sleeves and a crew neck for a classic look. It features flat lock seams to prevent chafing and is a lightweight construction. This t shirt is designed with a signature logo and is complete with New Balance branding."
+  },
+  {
+    "id": 230,
+    "cost": 68,
+    "brand": "nike",
+    "model": "prime",
+    "gender": "women",
+    "size": "39,40,41,42,43",
+    "color": "gray",
+    "item": "shoes",
+    "rev": "Run faster and further than before in these adidas Lite Racer Reborn Men's Running Shoes. They are with a lightweight mesh upper that hugs the foot thanks to a sock-like construction and allows for breathability. The OrthoLite Float sockliner, combined with a Cloudofam midsole & outsole offers support and bounceback with every step taken.The look is completed with iconic adidas three stripe branding."
   }
 ]
