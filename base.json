@@ -1029,7 +1029,7 @@
     "model": "Speedcross_4_GTX",
     "gender": "men",
     "size": "39,40,41,42,43",
-    "color": "yellow",
+    "color": "red",
     "item": "shoes",
     "rev": "Run faster and further than before in these adidas Lite Racer Reborn Men's Running Shoes. They are with a lightweight mesh upper that hugs the foot thanks to a sock-like construction and allows for breathability. The OrthoLite Float sockliner, combined with a Cloudofam midsole & outsole offers support and bounceback with every step taken.The look is completed with iconic adidas three stripe branding."
   },
@@ -1051,7 +1051,7 @@
     "model": "Speedcross_Vario_2_GTX",
     "gender": "men",
     "size": "40.5,41,42",
-    "color": "silver",
+    "color": "blue",
     "item": "shoes",
     "rev": "Run faster and further than before in these adidas Lite Racer Reborn Men's Running Shoes. They are with a lightweight mesh upper that hugs the foot thanks to a sock-like construction and allows for breathability. The OrthoLite Float sockliner, combined with a Cloudofam midsole & outsole offers support and bounceback with every step taken.The look is completed with iconic adidas three stripe branding."
   },
@@ -2129,7 +2129,7 @@
     "model": "Speedcross_4_GTX",
     "gender": "women",
     "size": "36,37,38.5,41",
-    "color": "yellow",
+    "color": "red",
     "item": "shoes",
     "rev": "Run faster and further than before in these adidas Lite Racer Reborn Men's Running Shoes. They are with a lightweight mesh upper that hugs the foot thanks to a sock-like construction and allows for breathability. The OrthoLite Float sockliner, combined with a Cloudofam midsole & outsole offers support and bounceback with every step taken.The look is completed with iconic adidas three stripe branding."
   },
@@ -2195,7 +2195,7 @@
     "model": "Bondcliff",
     "gender": "women",
     "size": "37,38,39,41",
-    "color": "green",
+    "color": "blue",
     "item": "shoes",
     "rev": "Run faster and further than before in these adidas Lite Racer Reborn Men's Running Shoes. They are with a lightweight mesh upper that hugs the foot thanks to a sock-like construction and allows for breathability. The OrthoLite Float sockliner, combined with a Cloudofam midsole & outsole offers support and bounceback with every step taken.The look is completed with iconic adidas three stripe branding."
   },
@@ -2527,6 +2527,94 @@
     "size": "39,40,41,42,43",
     "color": "gray",
     "item": "shoes",
+    "rev": "Run faster and further than before in these adidas Lite Racer Reborn Men's Running Shoes. They are with a lightweight mesh upper that hugs the foot thanks to a sock-like construction and allows for breathability. The OrthoLite Float sockliner, combined with a Cloudofam midsole & outsole offers support and bounceback with every step taken.The look is completed with iconic adidas three stripe branding."
+  },
+  {
+    "id": 231,
+    "cost": 42,
+    "brand": "puma",
+    "model": "Falcon_Trainers",
+    "gender": "girl",
+    "size": "34,35,36,37",
+    "color": "black",
+    "item": "shoes",
+    "rev": "Run faster and further than before in these adidas Lite Racer Reborn Men's Running Shoes. They are with a lightweight mesh upper that hugs the foot thanks to a sock-like construction and allows for breathability. The OrthoLite Float sockliner, combined with a Cloudofam midsole & outsole offers support and bounceback with every step taken.The look is completed with iconic adidas three stripe branding."
+  },
+  {
+    "id": 232,
+    "cost": 78,
+    "brand": "reebok",
+    "model": "workout_jacket",
+    "gender": "women",
+    "size": "8,10,12",
+    "color": "gray",
+    "item": "clothing",
+    "rev": "Run faster and further than before in these adidas Lite Racer Reborn Men's Running Shoes. They are with a lightweight mesh upper that hugs the foot thanks to a sock-like construction and allows for breathability. The OrthoLite Float sockliner, combined with a Cloudofam midsole & outsole offers support and bounceback with every step taken.The look is completed with iconic adidas three stripe branding."
+  },
+  {
+    "id": 233,
+    "cost": 51,
+    "brand": "reebok",
+    "model": "workout_jacket",
+    "gender": "women",
+    "size": "8,10,12",
+    "color": "black",
+    "item": "clothing",
+    "rev": "Run faster and further than before in these adidas Lite Racer Reborn Men's Running Shoes. They are with a lightweight mesh upper that hugs the foot thanks to a sock-like construction and allows for breathability. The OrthoLite Float sockliner, combined with a Cloudofam midsole & outsole offers support and bounceback with every step taken.The look is completed with iconic adidas three stripe branding."
+  },
+  {
+    "id": 234,
+    "cost": 31,
+    "brand": "reebok",
+    "model": "Speedwick_jacket",
+    "gender": "women",
+    "size": "6,8,10,12",
+    "color": "black",
+    "item": "clothing",
+    "rev": "Run faster and further than before in these adidas Lite Racer Reborn Men's Running Shoes. They are with a lightweight mesh upper that hugs the foot thanks to a sock-like construction and allows for breathability. The OrthoLite Float sockliner, combined with a Cloudofam midsole & outsole offers support and bounceback with every step taken.The look is completed with iconic adidas three stripe branding."
+  },
+  {
+    "id": 235,
+    "cost": 52,
+    "brand": "reebok",
+    "model": "Supply_Hybrid_Jacket",
+    "gender": "women",
+    "size": "8,10,12",
+    "color": "white",
+    "item": "clothing",
+    "rev": "Run faster and further than before in these adidas Lite Racer Reborn Men's Running Shoes. They are with a lightweight mesh upper that hugs the foot thanks to a sock-like construction and allows for breathability. The OrthoLite Float sockliner, combined with a Cloudofam midsole & outsole offers support and bounceback with every step taken.The look is completed with iconic adidas three stripe branding."
+  },
+  {
+    "id": 236,
+    "cost": 78,
+    "brand": "new_balance",
+    "model": "seasonless_tee",
+    "gender": "women",
+    "size": "8,10,12",
+    "color": "blue",
+    "item": "clothing",
+    "rev": "Run faster and further than before in these adidas Lite Racer Reborn Men's Running Shoes. They are with a lightweight mesh upper that hugs the foot thanks to a sock-like construction and allows for breathability. The OrthoLite Float sockliner, combined with a Cloudofam midsole & outsole offers support and bounceback with every step taken.The look is completed with iconic adidas three stripe branding."
+  },
+  {
+    "id": 237,
+    "cost": 120,
+    "brand": "salomon",
+    "model": "Agile_jacket",
+    "gender": "women",
+    "size": "8,10,12,14",
+    "color": "black",
+    "item": "clothing",
+    "rev": "Run faster and further than before in these adidas Lite Racer Reborn Men's Running Shoes. They are with a lightweight mesh upper that hugs the foot thanks to a sock-like construction and allows for breathability. The OrthoLite Float sockliner, combined with a Cloudofam midsole & outsole offers support and bounceback with every step taken.The look is completed with iconic adidas three stripe branding."
+  },
+  {
+    "id": 238,
+    "cost": 100,
+    "brand": "salomon",
+    "model": "Half_zip_top",
+    "gender": "women",
+    "size": "8,10,12,14",
+    "color": "gray",
+    "item": "clothing",
     "rev": "Run faster and further than before in these adidas Lite Racer Reborn Men's Running Shoes. They are with a lightweight mesh upper that hugs the foot thanks to a sock-like construction and allows for breathability. The OrthoLite Float sockliner, combined with a Cloudofam midsole & outsole offers support and bounceback with every step taken.The look is completed with iconic adidas three stripe branding."
   }
 ]
