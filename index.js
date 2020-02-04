@@ -10,7 +10,9 @@ app.use(cors());
 const port = process.env.PORT||5000;
 
 app.get("/",function(req,res) {
-  let url = req.protocol +'://' + req.hostname + ":" + `${port}`;
+ 
+  let url =  port == 5000 ? req.protocol +'://' + req.hostname +  `:${port}`:
+              req.protocol +'://' + req.hostname;
  
   let s =  fs.readdirSync((__dirname + "/items")); 
   
@@ -71,7 +73,9 @@ app.get("/",function(req,res) {
 });
 
 app.get("/items",function(req,res) { 
-  let url = req.protocol +'://' + req.hostname + ":" + `${port}`;
+  let url =  port == 5000 ? req.protocol +'://' + req.hostname +  `:${port}`:
+              req.protocol +'://' + req.hostname;
+
   let brand = req.query.brand;
   let s =  fs.readdirSync((__dirname + `/items/${brand}`));
   let num = req.query.number || 0;
@@ -135,7 +139,10 @@ app.get("/items",function(req,res) {
 });
 app.all("/items/*", function(req,res,err) {
     var path = req.path;
-    let url = req.protocol +'://' + req.hostname + ":" + `${port}`;
+    let url =  port == 5000 ? req.protocol +'://' + req.hostname +  `:${port}`:
+              req.protocol +'://' + req.hostname;
+  
+
     let s = fs.existsSync(__dirname +  path + ".jpg");  
     s ? 
     res.sendFile(__dirname +  path + ".jpg"):   
@@ -152,7 +159,9 @@ app.get("/base", function(req,res) {
 });
 
 app.get("/upload",function(req,res){ 
-  let url = req.protocol +'://' + req.hostname + ":" + `${port}`;
+ 
+  let url =  port == 5000 ? req.protocol +'://' + req.hostname +  `:${port}`:
+              req.protocol +'://' + req.hostname;
   let brand = req.query.brand; 
   res.send(`
   <!doctype html>
@@ -204,8 +213,10 @@ app.get("/upload",function(req,res){
   `)
 }); 
 app.post("/upload/fileupload",function(req,res){ 
-  let url = req.protocol +'://' + req.hostname + ":" + `${port}`;
-  let brand = req.query.brand;  
+  
+  var url =  port == 5000 ? req.protocol +'://' + req.hostname +  `:${port}`:
+              req.protocol +'://' + req.hostname;
+  var brand = req.query.brand;  
   var form = new formidable.IncomingForm();
   form.parse(req, function (err, fields, files) {
     var oldpath = files.filetoupload.path;
