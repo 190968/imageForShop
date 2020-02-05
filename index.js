@@ -5,7 +5,16 @@ var path = require("path");
 var cors = require("cors");
 var app = express();
 var formidable = require("formidable");
+
 app.use(cors());
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", '*');
+  res.header("Access-Control-Allow-Credentials", true);
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+  next();
+});
 
 const port = process.env.PORT||5000;
 
@@ -16,7 +25,7 @@ app.get("/",function(req,res) {
  
   let s =  fs.readdirSync((__dirname + "/items")); 
   
-   
+  //  Main page
   res.send(`<!doctype html>
     <html>
     <head>
@@ -37,10 +46,16 @@ app.get("/",function(req,res) {
           background-color: #000;
           color: #fff;
         }
-        @media screen and (max-width: 480px) {
+        div {
+          margin-top: 25vw;
+        }
+        @media only screen and (max-device-width: 480px) {
           a {
-            font: 400 40px/40px "Arial",sans-serif;
+            padding: 15px 30px;
+            font: 400 50px/50px "Arial",sans-serif;
           }
+         
+
         }
         div,
         body {
@@ -71,7 +86,7 @@ app.get("/",function(req,res) {
   `);
    
 });
-
+// Page with image
 app.get("/items",function(req,res) { 
   let url =  port == 5000 ? req.protocol +'://' + req.hostname +  `:${port}`:
               req.protocol +'://' + req.hostname;
@@ -79,12 +94,16 @@ app.get("/items",function(req,res) {
   let brand = req.query.brand;
   let s =  fs.readdirSync((__dirname + `/items/${brand}`));
   let num = req.query.number || 0;
-  let n = num < 0 ? 0 : num > s.length-1 ? s.length-1 : num; 
+  let n = num < 0 ? 0 : num > s.length-1 ? s.length-1 : num;
+  let to_del = s[n]; 
   let im = s[n].replace(".jpg","").replace(".webp","");   
   res.send(`<!doctype html>
     <html>
     <head>
     <style>
+      body {
+        background-color:  #00ffff;
+      }
       a {
         box-shadow:inset 0 0 5px 5px green;        
         display: inline-block;
@@ -94,6 +113,7 @@ app.get("/items",function(req,res) {
         font: 400 20px/30px "Arial",sans-serif;
         text-decoration: none;
         color: #000;
+        margin: 10px;
       }
       a:hover {
         background-color: #000;
@@ -102,12 +122,32 @@ app.get("/items",function(req,res) {
       }
       b {
         display: inline-block;
-        width: 300px;
+        width: auto;
         font-size: 30px;
       }
-      @media screen and (max-width: 480px) {
+      img {
+        display: block;
+        margin: 0 auto;
+        width: 50%;
+      }
+      a.delete {
+        visibility: hidden;
+      }
+      .del_block {
+        cursor: pointer;
+      }
+      p:hover a.delete {
+        transition: all 1s;
+        visibility: visible;
+      }
+      @media (max-device-width: 480px) {
         a {
+          padding: 15px 30px;
           font: 400 40px/40px "Arial",sans-serif;
+        }
+        img {
+          margin-top: 10vw;
+          width: 100%;
         }
       }
     </style>
@@ -115,19 +155,20 @@ app.get("/items",function(req,res) {
      
     <body>
     <div>
-    
-      <a href = ${url}/>EXIT</a>
-      <a href = ${url}/upload/?brand=${brand}>UPLOAD IMAGE</a>
       <p align="center" >
-        <a  href = ${url}/items/?brand=${brand}&number=${+n-1}>prev</a>       
+        <a href = ${url}/>EXIT</a>
+        <a href = ${url}/upload/?brand=${brand}>UPLOAD IMAGE</a>     
+        <a  href = ${url}/items/?brand=${brand}&number=${+n-1}>prev</a>
+        <b>${im}</b>           
         <a  href = ${url}/items/?brand=${brand}&number=${+n + 1}>next</a>
       </p>
-      <p align="center">     
-        <b>${im}</b>     
+     
+      <img src = ${url}/items/${brand}/${im}>
+      <p align="center"> <span class="del_block">delete file</span>
+      <a  class = "delete" href = ${url}/items/?brand=${brand}&number=${n}>no</a> 
+      <a  class = "delete" href = ${url}/delete/?brand=${brand}&name=${to_del}>yes</a>
+
       </p>
-      <img src = ${url}/items/${brand}/${im} 
-        style="margin:0 auto;display:block"
-      >
      
     
    </div>
@@ -137,20 +178,32 @@ app.get("/items",function(req,res) {
     `);
    
 });
+
+//  request for send files to site
 app.all("/items/*", function(req,res,err) {
     var path = req.path;
-    let url =  port == 5000 ? req.protocol +'://' + req.hostname +  `:${port}`:
+    var url =  port == 5000 ? req.protocol +'://' + req.hostname +  `:${port}`:
               req.protocol +'://' + req.hostname;
   
 
-    let s = fs.existsSync(__dirname +  path + ".jpg");  
+    var s = fs.existsSync(__dirname +  path + ".jpg");  
     s ? 
     res.sendFile(__dirname +  path + ".jpg"):   
     res.sendFile(__dirname +  path + ".webp"); 
    
 });
 
+// delete image
+app.get("/delete",function(req,res){
+  let brand = req.query.brand; 
+  let name = req.query.name; 
+  fs.unlink((__dirname + `/items/${brand}/${name}`),function(err){
+    if (err) throw err;
+    console.log(`file $[name] deleted`);
+  });
+});
 
+// page with base
 app.get("/base", function(req,res) {    
      fs.readFile("base.json", function(err,data) { 
          if (err) throw err;       
@@ -158,8 +211,8 @@ app.get("/base", function(req,res) {
     });
 });
 
+// page for upload files
 app.get("/upload",function(req,res){ 
- 
   let url =  port == 5000 ? req.protocol +'://' + req.hostname +  `:${port}`:
               req.protocol +'://' + req.hostname;
   let brand = req.query.brand; 

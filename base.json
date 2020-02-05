@@ -2616,5 +2616,16 @@
     "color": "gray",
     "item": "clothing",
     "rev": "Run faster and further than before in these adidas Lite Racer Reborn Men's Running Shoes. They are with a lightweight mesh upper that hugs the foot thanks to a sock-like construction and allows for breathability. The OrthoLite Float sockliner, combined with a Cloudofam midsole & outsole offers support and bounceback with every step taken.The look is completed with iconic adidas three stripe branding."
+  },
+  {
+    "id": 239,
+    "cost": 100,
+    "brand": "adidas",
+    "model": "T_Shirt_Train",
+    "gender": "girl",
+    "size": "6,8",
+    "color": "pink",
+    "item": "clothing",
+    "rev": "Run faster and further than before in these adidas Lite Racer Reborn Men's Running Shoes. They are with a lightweight mesh upper that hugs the foot thanks to a sock-like construction and allows for breathability. The OrthoLite Float sockliner, combined with a Cloudofam midsole & outsole offers support and bounceback with every step taken.The look is completed with iconic adidas three stripe branding."
   }
 ]
