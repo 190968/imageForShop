@@ -24,6 +24,7 @@
   {
     "id": 3,
     "cost": 26,
+    "sale":30,
     "brand": "adidas",
     "model": "Speed_Cross",
     "gender": "men",
@@ -343,6 +344,7 @@
   {
     "id": 32,
     "cost": 73,
+    "sale": 30,
     "brand": "puma",
     "model": "graphics",
     "gender": "men",
@@ -376,6 +378,7 @@
   {
     "id": 35,
     "cost": 59,
+    "sale": 30,
     "brand": "puma",
     "model": "graphics",
     "gender": "men",
@@ -409,6 +412,7 @@
   {
     "id": 38,
     "cost": 59,
+    "sale":30,
     "brand": "puma",
     "model": "Ignite_limited",
     "gender": "men",
@@ -475,6 +479,7 @@
   {
     "id": 44,
     "cost": 70,
+    "sale": 60,
     "brand": "nike",
     "model": "Air_Zoom",
     "gender": "men",
@@ -530,6 +535,7 @@
   {
     "id": 49,
     "cost": 65,
+    "sale":50,
     "brand": "nike",
     "model": "Zoom_Vomero",
     "gender": "men",
@@ -563,6 +569,7 @@
   {
     "id": 52,
     "cost": 67,
+    "sale": 40,
     "brand": "nike",
     "model": "Zoom_Vomero",
     "gender": "men",
@@ -585,6 +592,7 @@
   {
     "id": 54,
     "cost": 81,
+    "sale": 30,
     "brand": "nike",
     "model": "WildHorse_5",
     "gender": "men",
@@ -607,6 +615,7 @@
   {
     "id": 56,
     "cost": 65,
+    "sale": 30,
     "brand": "nike",
     "model": "WildHorse_5",
     "gender": "men",
@@ -651,6 +660,7 @@
   {
     "id": 60,
     "cost": 52,
+    "sale": 50,
     "brand": "nike",
     "model": "Zoom_Structure",
     "gender": "men",
@@ -1047,6 +1057,7 @@
   {
     "id": 96,
     "cost": 115,
+    "sale":40,
     "brand": "salomon",
     "model": "Speedcross_Vario_2_GTX",
     "gender": "men",
@@ -1058,6 +1069,7 @@
   {
     "id": 97,
     "cost": 126,
+    "sale": 50,
     "brand": "salomon",
     "model": "Speedcross_Vario_2_GTX",
     "gender": "men",
@@ -1091,6 +1103,7 @@
   {
     "id": 100,
     "cost": 72,
+    "sale":30,
     "brand": "salomon",
     "model": "Bondcliff",
     "gender": "men",
@@ -1179,6 +1192,7 @@
   {
     "id": 108,
     "cost": 38,
+    "sale":30,
     "brand": "adidas",
     "model": "Pulseboost",
     "gender": "women",
@@ -1201,6 +1215,7 @@
   {
     "id": 110,
     "cost": 42,
+    "sale":30,
     "brand": "adidas",
     "model": "Pulseboost",
     "gender": "women",
@@ -1982,6 +1997,7 @@
   {
     "id": 181,
     "cost": 62,
+    "sale": 40,
     "brand": "asics",
     "model": "Gel_Lite",
     "gender": "women",
@@ -2389,6 +2405,7 @@
   {
     "id": 218,
     "cost": 59,
+    "sale":50,
     "brand": "asics",
     "model": "Gel_Lite",
     "gender": "girl",
@@ -2444,6 +2461,7 @@
   {
     "id": 223,
     "cost": 51,
+    "sale": 30,
     "brand": "reebok",
     "model": "Quick_Moution",
     "gender": "girl",

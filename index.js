@@ -6,7 +6,7 @@ var cors = require("cors");
 var app = express();
 var formidable = require("formidable");
 
-app.use(cors());
+
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", '*');
@@ -16,12 +16,16 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use(cors());
+
 const port = process.env.PORT||5000;
 
 app.get("/",function(req,res) {
+  app.locals.url =  port == 5000 ? req.protocol +'://' + req.hostname +  `:${port}`:
+                  req.protocol +'://' + req.hostname;
+
  
-  let url =  port == 5000 ? req.protocol +'://' + req.hostname +  `:${port}`:
-              req.protocol +'://' + req.hostname;
+ 
  
   let s =  fs.readdirSync((__dirname + "/items")); 
   
@@ -68,15 +72,15 @@ app.get("/",function(req,res) {
         <div>
        
           <h1 id="one" align="center">
-            <a href = ${url}/items/?brand=${s[0]}>${s[0]}</a>
-            <a href = ${url}/items/?brand=${s[1]}>${s[1]}</a>
-            <a href = ${url}/items/?brand=${s[2]}>${s[2]}</a>
-            <a href = ${url}/items/?brand=${s[3]}>${s[3]}</a>
-            <a href = ${url}/items/?brand=${s[4]}>${s[4]}</a>
-            <a href = ${url}/items/?brand=${s[5]}>${s[5]}</a>
-            <a href = ${url}/items/?brand=${s[6]}>${s[6]}</a>
-            <a href = ${url}/items/?brand=${s[7]}>${s[7]}</a>
-            <a href = ${url}/items/?brand=${s[8]}>${s[8]}</a>
+            <a href = ${app.locals.url}/items/?brand=${s[0]}>${s[0]}</a>
+            <a href = ${app.locals.url}/items/?brand=${s[1]}>${s[1]}</a>
+            <a href = ${app.locals.url}/items/?brand=${s[2]}>${s[2]}</a>
+            <a href = ${app.locals.url}/items/?brand=${s[3]}>${s[3]}</a>
+            <a href = ${app.locals.url}/items/?brand=${s[4]}>${s[4]}</a>
+            <a href = ${app.locals.url}/items/?brand=${s[5]}>${s[5]}</a>
+            <a href = ${app.locals.url}/items/?brand=${s[6]}>${s[6]}</a>
+            <a href = ${app.locals.url}/items/?brand=${s[7]}>${s[7]}</a>
+            <a href = ${app.locals.url}/items/?brand=${s[8]}>${s[8]}</a>
             <a>add</a>
           </h1>    
       </div>
@@ -88,15 +92,14 @@ app.get("/",function(req,res) {
 });
 // Page with image
 app.get("/items",function(req,res) { 
-  let url =  port == 5000 ? req.protocol +'://' + req.hostname +  `:${port}`:
-              req.protocol +'://' + req.hostname;
 
   let brand = req.query.brand;
   let s =  fs.readdirSync((__dirname + `/items/${brand}`));
+  console.log(s);
   let num = req.query.number || 0;
   let n = num < 0 ? 0 : num > s.length-1 ? s.length-1 : num;
   let to_del = s[n]; 
-  let im = s[n].replace(".jpg","").replace(".webp","");   
+  let im = s.length !== 0 ? s[n].replace(".jpg","").replace(".webp","") : s[1];   
   res.send(`<!doctype html>
     <html>
     <head>
@@ -109,6 +112,7 @@ app.get("/items",function(req,res) {
         display: inline-block;
         padding: 10px 20px;
         border: 2px solid #red;
+        vertical-align: middle;
         border-radius: 90px;
         font: 400 20px/30px "Arial",sans-serif;
         text-decoration: none;
@@ -126,9 +130,10 @@ app.get("/items",function(req,res) {
         font-size: 30px;
       }
       img {
-        display: block;
-        margin: 0 auto;
+        display: inline-block;
+        
         width: 50%;
+        vertical-align: middle;
       }
       a.delete {
         visibility: hidden;
@@ -156,17 +161,20 @@ app.get("/items",function(req,res) {
     <body>
     <div>
       <p align="center" >
-        <a href = ${url}/>EXIT</a>
-        <a href = ${url}/upload/?brand=${brand}>UPLOAD IMAGE</a>     
-        <a  href = ${url}/items/?brand=${brand}&number=${+n-1}>prev</a>
+        <a href = ${app.locals.url}/>EXIT</a>
+        <a href = ${app.locals.url}/upload/?brand=${brand}>UPLOAD IMAGE</a>     
+       
         <b>${im}</b>           
-        <a  href = ${url}/items/?brand=${brand}&number=${+n + 1}>next</a>
+        <span class="del_block">delete file</span>
+        <a  class = "delete" href = ${app.locals.url}/items/?brand=${brand}&number=${n}>no</a> 
+        <a  class = "delete" href = ${app.locals.url}/delete/?brand=${brand}&name=${to_del}>yes</a>
       </p>
-     
-      <img src = ${url}/items/${brand}/${im}>
-      <p align="center"> <span class="del_block">delete file</span>
-      <a  class = "delete" href = ${url}/items/?brand=${brand}&number=${n}>no</a> 
-      <a  class = "delete" href = ${url}/delete/?brand=${brand}&name=${to_del}>yes</a>
+      <p align="center">
+        <a  href = ${app.locals.url}/items/?brand=${brand}&number=${+n-1}>prev</a>
+        <img src = ${app.locals.url}/items/${brand}/${im} alt ="no image">
+        <a  href = ${app.locals.url}/items/?brand=${brand}&number=${+n + 1}>next</a>
+      </p>
+      <p align="center"> 
 
       </p>
      
@@ -203,7 +211,7 @@ app.get("/delete",function(req,res){
   });
 });
 
-// page with base
+// page response base
 app.get("/base", function(req,res) {    
      fs.readFile("base.json", function(err,data) { 
          if (err) throw err;       
