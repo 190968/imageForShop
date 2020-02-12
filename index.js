@@ -81,7 +81,7 @@ app.get("/",function(req,res) {
             <a href = ${app.locals.url}/items/?brand=${s[6]}>${s[6]}</a>
             <a href = ${app.locals.url}/items/?brand=${s[7]}>${s[7]}</a>
             <a href = ${app.locals.url}/items/?brand=${s[8]}>${s[8]}</a>
-            <a>add</a>
+            <a href = ${app.locals.url}/create>create folder</a>
           </h1>    
       </div>
 
@@ -90,6 +90,64 @@ app.get("/",function(req,res) {
   `);
    
 });
+
+
+// Create folder
+
+app.get("/create", function(req, res) {
+
+  let name = req.query.name;
+  if (name == undefined) {
+
+    res.send(`<!doctype html>
+      <head>
+        <style>
+          div {
+            border: 1px solid red;
+            width: 30%;
+            text-align: center;
+            margin: 100px auto;
+          }
+          input {
+            display: block;
+            margin: 10px auto;
+            width: 50%;
+            padding: 10px;
+            font-size: 20px;
+          }
+        </style>
+      </head>
+      <html>
+      <body>
+        <div >
+        <form action="create/?name=${name}" method="get" enctype="multipart/form-data">
+       
+        <input type="text" name="name" placeholder="name folder"><br/>
+        <input type="submit" value="CREATE FOLDER">
+      </form>
+        </div>
+      </body>
+      </html>
+    
+    `)
+
+  } else {
+    fs.mkdir((__dirname + `/items/${name}`),function(err){
+      if (err) {
+
+        res.send(`<h1>${err}</h1>`)
+
+      } else {
+        res.redirect("/");
+      }  
+      // console.log(`/`);
+    })
+    
+  }
+});
+
+
+
 // Page with image
 app.get("/items",function(req,res) { 
 
@@ -287,12 +345,7 @@ app.post("/upload/fileupload",function(req,res){
     fs.rename(oldpath, newpath, function (err) {
       if (err) {
         
-        res.write(`
-        <h1>File not  uploaded  ${error}</h1> 
-        <a href = ${url}/>EXIT</a></h1>
-        `);
-        res.end();
-
+        res.send(`<h1>${err}</h1>`)
       } else {
         res.write(`
           <h1>File uploaded to ${brand} directory 
