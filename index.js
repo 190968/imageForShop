@@ -286,23 +286,19 @@ app.post("/upload/fileupload",function(req,res){
     var newpath = path.join( __dirname,'items',`${brand}`,files.filetoupload.name);
     fs.rename(oldpath, newpath, function (err) {
       if (err) {
-        res.writeHead(200, {
-          "Access-Control-Allow-Origin": "*",
-          "Access-Control-Allow-Methods": "POST,GET",
-          'content-type': 'multipart/form-data'
-        });  
+        
         res.write(`
-        <h1>File not  uploaded </h1> 
+        <h1>File not  uploaded  ${error}</h1> 
         <a href = ${url}/>EXIT</a></h1>
-      `);
-      res.end();
+        `);
+        res.end();
 
       } else {
-      res.write(`
-        <h1>File uploaded to ${brand} directory 
-        <a href = ${url}/>EXIT</a></h1>
-      `);
-      res.end();
+        res.write(`
+          <h1>File uploaded to ${brand} directory 
+          <a href = ${url}/>EXIT</a></h1>
+        `);
+        res.end();
       }
     });
   });  
