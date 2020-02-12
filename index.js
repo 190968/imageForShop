@@ -6,17 +6,17 @@ var cors = require("cors");
 var app = express();
 var formidable = require("formidable");
 
-
+app.use(cors());
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", '*');
   res.header("Access-Control-Allow-Credentials", true);
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-  res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json,multipart/form-data');
+  res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
   next();
 });
 
-app.use(cors());
+
 
 const port = process.env.PORT||5000;
 
@@ -108,7 +108,7 @@ app.get("/items",function(req,res) {
         background-color:  #00ffff;
       }
       a {
-        box-shadow:inset 0 0 5px 5px green;        
+        box-shadow:inset 0 0 10px 2px green;        
         display: inline-block;
         padding: 10px 20px;
         border: 2px solid #red;
@@ -165,7 +165,7 @@ app.get("/items",function(req,res) {
         <a href = ${app.locals.url}/upload/?brand=${brand}>UPLOAD IMAGE</a>     
        
         <b>${im}</b>           
-        <span class="del_block">delete file</span>
+        <a>delete file</a>
         <a  class = "delete" href = ${app.locals.url}/items/?brand=${brand}&number=${n}>no</a> 
         <a  class = "delete" href = ${app.locals.url}/delete/?brand=${brand}&name=${to_del}>yes</a>
       </p>
@@ -212,7 +212,8 @@ app.get("/delete",function(req,res){
 });
 
 // page response base
-app.get("/base", function(req,res) {    
+app.get("/base", function(req,res) { 
+  console.log("send data");   
      fs.readFile("base.json", function(err,data) { 
          if (err) throw err;       
         res.send(data);
@@ -230,7 +231,7 @@ app.get("/upload",function(req,res){
   <head>
   <style>
     input,a {
-      box-shadow:inset 0 0 5px 5px green;        
+      box-shadow:inset 0 0 10px 10px green;        
       display: block;
       padding: 10px 20px;
       border: 2px solid #red;
@@ -280,15 +281,29 @@ app.post("/upload/fileupload",function(req,res){
   var brand = req.query.brand;  
   var form = new formidable.IncomingForm();
   form.parse(req, function (err, fields, files) {
+   
     var oldpath = files.filetoupload.path;
     var newpath = path.join( __dirname,'items',`${brand}`,files.filetoupload.name);
     fs.rename(oldpath, newpath, function (err) {
-      if (err) throw err;
+      if (err) {
+        res.writeHead(200, {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "POST,GET",
+          'content-type': 'multipart/form-data'
+        });  
+        res.write(`
+        <h1>File not  uploaded </h1> 
+        <a href = ${url}/>EXIT</a></h1>
+      `);
+      res.end();
+
+      } else {
       res.write(`
         <h1>File uploaded to ${brand} directory 
         <a href = ${url}/>EXIT</a></h1>
       `);
       res.end();
+      }
     });
   });  
 });       
