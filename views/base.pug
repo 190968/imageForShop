@@ -34,8 +34,9 @@ body
 div 
     h1 upload file
     form(action="uploadBase" method="post" enctype="multipart/form-data")
-        input(type="file" name="filetoupload")
-        input(type="submit")
+        
+        input(type="file" name="filetoupload"  value = "select file" placeholder="select file")
+        input(type="submit" value="upload")
      
    
     a(href=exit) exit

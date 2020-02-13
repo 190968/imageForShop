@@ -39,22 +39,25 @@ app.get("/",function(req,res) {
       <style>
         .folders a {
           box-shadow:inset 0 0 5px 5px #ddd; 
-          margin: 20px;      
+          margin: 20px;
+          width: 200px;
+          height: 50px;      
           display: inline-block;
-          padding: 5px 20px;
+         
           border: 2px solid #000;
-          border-radius: 80px;
-          font: 400 40px/45px "Arial",sans-serif;
+         
+          font: 400 30px/50px "Arial",sans-serif;
           text-decoration: none;
           color: #000;
         }
         .add_folder {
-          box-shadow:inset 0 0 5px 5px #ccc; 
+          box-shadow:inset 0 0 5px 5px silver; 
           margin: 20px;      
-          display: inline-block;
+          display: block;
           padding: 5px 20px;
           border: 2px solid red;
-         
+          width: 200px;
+          text-align: center;
           font: 400 20px/25px "Arial",sans-serif;
           text-decoration: none;
           color: #000;
@@ -63,8 +66,10 @@ app.get("/",function(req,res) {
           background-color: #000;
           color: #fff;
         }
-        div {
-          margin-top: 25vw;
+        div.folders {
+          margin: 5vw auto;
+          width: 60%;
+          
         }
         @media only screen and (max-device-width: 480px) {
           a {
@@ -83,7 +88,8 @@ app.get("/",function(req,res) {
     </head>
       <body>
         <div>
-       
+          <a class="add_folder" href = ${app.locals.url}/createFolder>create new folder</a>
+          <a class="add_folder" href = ${app.locals.url}/upload_base>add base</a>      
           <div class="folders" align="center">
             <a href = ${app.locals.url}/items/?brand=${s[0]}>${s[0]}</a>
             <a href = ${app.locals.url}/items/?brand=${s[1]}>${s[1]}</a>
@@ -96,8 +102,7 @@ app.get("/",function(req,res) {
             <a href = ${app.locals.url}/items/?brand=${s[8]}>${s[8]}</a>
            
           </div>
-          <a class="add_folder" href = ${app.locals.url}/createFolder>create new folder</a>
-          <a class="add_folder" href = ${app.locals.url}/upload>add base</a>      
+         
       </div>
 
     </body>   
@@ -125,14 +130,43 @@ app.get("/createFolder",(req,res)=>{
 
   }
 });
+
+// pug form  for upload image
+app.get("/upload_image",(req,res)=>{ 
+  app.locals.brand = req.query.brand;  
+  res.render('image',{exit: app.locals.url, brand: app.locals.brand} )
+});  
+
+
+
+app.post("/upload_image/uploadimage",(req,res)=>{  
+  let brand = req.query.brand;
+  console.log(brand);   
+  var form = new formidable.IncomingForm();
+  form.parse(req, function (err, fields, files) {
+   
+    var oldpath = files.imageupload.path;
+    var newpath = path.join( __dirname,'items',app.locals.brand,files.imageupload.name);
+
+    fs.copyFile(oldpath, newpath, function (err) {   
+      if (err) {
+        res.send(`<h1>${err}</h1>`)
+      } else {
+        res.redirect("/");
+      }     
+    })
+
+  });
+
+});
+
 //uploadBase
-// app.use(bodyParser.json({ inflate: true, limit: '2000kb',type: 'image/*'}));
-app.post("/uploadBase",(req,res)=>{
-  // const buf = Buffer.from(req.body.file,'base64');
-  let name = req.query.name; 
+
+app.post("/uploadBase",(req,res)=>{  
+ 
     var url =  port == 5000 ? req.protocol +'://' + req.hostname +  `:${port}`:
               req.protocol +'://' + req.hostname;
-  // var brand = req.query.brand;  
+ 
   var form = new formidable.IncomingForm();
   form.parse(req, function (err, fields, files) {
    
@@ -151,8 +185,10 @@ app.post("/uploadBase",(req,res)=>{
 
 });
 
-// pug form  for upload
-app.get("/upload",(req,res)=>{  
+
+// pug form  for upload base
+app.get("/upload_base",(req,res)=>{ 
+  
   res.render('base',{exit: app.locals.url} )
 });  
 
@@ -181,7 +217,7 @@ app.get("/items",function(req,res) {
         padding: 10px 20px;
         border: 2px solid #red;
         vertical-align: middle;
-        border-radius: 90px;
+       
         font: 400 20px/30px "Arial",sans-serif;
         text-decoration: none;
         color: #000;
@@ -230,7 +266,7 @@ app.get("/items",function(req,res) {
     <div>
       <p align="center" >
         <a href = ${app.locals.url}/>EXIT</a>
-        <a href = ${app.locals.url}/upload/?brand=${brand}>UPLOAD IMAGE</a>     
+        <a href = ${app.locals.url}/upload_image/?brand=${brand}>UPLOAD IMAGE</a>     
        
         <b>${im}</b>           
         <a>delete file</a>
@@ -264,7 +300,8 @@ app.all("/items/*", function(req,res,err) {
 
     var s = fs.existsSync(__dirname +  path + ".jpg");  
     s ? 
-    res.sendFile(__dirname +  path + ".jpg"):   
+    res.sendFile(__dirname +  path + ".jpg")
+    :   
     res.sendFile(__dirname +  path + ".webp"); 
    
 });
@@ -275,7 +312,8 @@ app.get("/delete",function(req,res){
   let name = req.query.name; 
   fs.unlink((__dirname + `/items/${brand}/${name}`),function(err){
     if (err) throw err;
-    console.log(`file $[name] deleted`);
+    res.redirect("/");
+    console.log(`file ${name} deleted`);
   });
 });
 
@@ -287,10 +325,6 @@ app.get("/base", function(req,res) {
         res.send(data);
     });
 });
-
-
-  
-
 
 app.listen(port, (err)=>{
   if ( err ) { return  console.log("Error");

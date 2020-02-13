@@ -4,7 +4,7 @@ html
     style.
         div {
             border: 1px solid red;
-            width: 30%;
+            width: 50%;
             text-align: center;
             margin: 100px auto;
         }
@@ -12,14 +12,15 @@ html
              display: block;
              margin: 10px auto;
              padding: 10;
-             width: 200;
+             width: 80%;
              font-size: 25px;
              background-color: #ddd;
              border: none;
              color: blue;
+             box-sizing: border-box;
         }
         a {
-            width: 180;
+            width: 80%;
             text-align: center;
             font-size: 25px;
             border: 1px solid #fff;
@@ -32,16 +33,15 @@ html
 
 body
 div 
-    form(action="createFolder/?name=${name}" method="get" enctype="multipart/form-data")
+    h1 upload file to #{brand}
+    form(action= "uploadimage" method="post" enctype="multipart/form-data")        
         input(
-                type="text"
-                placeholder="name catalog"
-                name="name"
-               
+            type= "file"
+            name= "imageupload"  
+            value = "select file" 
+            placeholder= "select file"
         )
-        input(
-                type="submit"
-                value="create folder" 
-               
-        )    
+        input(type="submit" value="upload")
+     
+   
     a(href=exit) exit
