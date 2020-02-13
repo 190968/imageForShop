@@ -1,0 +1,41 @@
+html
+    head
+        title pug
+    style.
+        div {
+            border: 1px solid red;
+            width: 50%;
+            text-align: center;
+            margin: 100px auto;
+        }
+        input,a {
+             display: block;
+             margin: 10px auto;
+             padding: 10;
+             width: 80%;
+             font-size: 25px;
+             background-color: #ddd;
+             border: none;
+             color: blue;
+        }
+        a {
+            width: 180;
+            text-align: center;
+            font-size: 25px;
+            border: 1px solid #fff;
+            text-decoration: none;
+        }
+        a:hover {
+            border: 1px solid red;
+        }
+
+
+body
+div 
+    h1 upload file
+    form(action="uploadBase" method="post" enctype="multipart/form-data")
+        input(type="file" name="filetoupload")
+        input(type="submit")
+     
+   
+    a(href=exit) exit

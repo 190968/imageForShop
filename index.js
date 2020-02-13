@@ -5,6 +5,8 @@ var path = require("path");
 var cors = require("cors");
 var app = express();
 var formidable = require("formidable");
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'views'));
 
 app.use(cors());
 
@@ -35,7 +37,7 @@ app.get("/",function(req,res) {
     <head>
       <title>my Site</title>
       <style>
-        a {
+        .folders a {
           box-shadow:inset 0 0 5px 5px #ddd; 
           margin: 20px;      
           display: inline-block;
@@ -43,6 +45,17 @@ app.get("/",function(req,res) {
           border: 2px solid #000;
           border-radius: 80px;
           font: 400 40px/45px "Arial",sans-serif;
+          text-decoration: none;
+          color: #000;
+        }
+        .add_folder {
+          box-shadow:inset 0 0 5px 5px #ccc; 
+          margin: 20px;      
+          display: inline-block;
+          padding: 5px 20px;
+          border: 2px solid red;
+         
+          font: 400 20px/25px "Arial",sans-serif;
           text-decoration: none;
           color: #000;
         }
@@ -71,7 +84,7 @@ app.get("/",function(req,res) {
       <body>
         <div>
        
-          <h1 id="one" align="center">
+          <div class="folders" align="center">
             <a href = ${app.locals.url}/items/?brand=${s[0]}>${s[0]}</a>
             <a href = ${app.locals.url}/items/?brand=${s[1]}>${s[1]}</a>
             <a href = ${app.locals.url}/items/?brand=${s[2]}>${s[2]}</a>
@@ -81,8 +94,10 @@ app.get("/",function(req,res) {
             <a href = ${app.locals.url}/items/?brand=${s[6]}>${s[6]}</a>
             <a href = ${app.locals.url}/items/?brand=${s[7]}>${s[7]}</a>
             <a href = ${app.locals.url}/items/?brand=${s[8]}>${s[8]}</a>
-            <a href = ${app.locals.url}/create>create folder</a>
-          </h1>    
+           
+          </div>
+          <a class="add_folder" href = ${app.locals.url}/createFolder>create new folder</a>
+          <a class="add_folder" href = ${app.locals.url}/upload>add base</a>      
       </div>
 
     </body>   
@@ -91,46 +106,11 @@ app.get("/",function(req,res) {
    
 });
 
-
-// Create folder
-
-app.get("/create", function(req, res) {
-
+//pug CreateFolder
+app.get("/createFolder",(req,res)=>{
   let name = req.query.name;
   if (name == undefined) {
-
-    res.send(`<!doctype html>
-      <head>
-        <style>
-          div {
-            border: 1px solid red;
-            width: 30%;
-            text-align: center;
-            margin: 100px auto;
-          }
-          input {
-            display: block;
-            margin: 10px auto;
-            width: 50%;
-            padding: 10px;
-            font-size: 20px;
-          }
-        </style>
-      </head>
-      <html>
-      <body>
-        <div >
-        <form action="create/?name=${name}" method="get" enctype="multipart/form-data">
-       
-        <input type="text" name="name" placeholder="name folder"><br/>
-        <input type="submit" value="CREATE FOLDER">
-      </form>
-        </div>
-      </body>
-      </html>
-    
-    `)
-
+  res.render('pug',{exit: app.locals.url} )
   } else {
     fs.mkdir((__dirname + `/items/${name}`),function(err){
       if (err) {
@@ -140,16 +120,46 @@ app.get("/create", function(req, res) {
       } else {
         res.redirect("/");
       }  
-      // console.log(`/`);
+     
     })
-    
+
   }
 });
+//uploadBase
+// app.use(bodyParser.json({ inflate: true, limit: '2000kb',type: 'image/*'}));
+app.post("/uploadBase",(req,res)=>{
+  // const buf = Buffer.from(req.body.file,'base64');
+  let name = req.query.name; 
+    var url =  port == 5000 ? req.protocol +'://' + req.hostname +  `:${port}`:
+              req.protocol +'://' + req.hostname;
+  // var brand = req.query.brand;  
+  var form = new formidable.IncomingForm();
+  form.parse(req, function (err, fields, files) {
+   
+    var oldpath = files.filetoupload.path;
+    var newpath = path.join( __dirname,files.filetoupload.name);
+
+    fs.copyFile(oldpath, newpath, function (err) {   
+      if (err) {
+        res.send(`<h1>${err}</h1>`)
+      } else {
+        res.redirect("/");
+      }     
+    })
+
+  });
+
+});
+
+// pug form  for upload
+app.get("/upload",(req,res)=>{  
+  res.render('base',{exit: app.locals.url} )
+});  
 
 
 
 // Page with image
-app.get("/items",function(req,res) { 
+app.get("/items",function(req,res) {
 
   let brand = req.query.brand;
   let s =  fs.readdirSync((__dirname + `/items/${brand}`));
@@ -278,85 +288,7 @@ app.get("/base", function(req,res) {
     });
 });
 
-// page for upload files
-app.get("/upload",function(req,res){ 
-  let url =  port == 5000 ? req.protocol +'://' + req.hostname +  `:${port}`:
-              req.protocol +'://' + req.hostname;
-  let brand = req.query.brand; 
-  res.send(`
-  <!doctype html>
-  <html>
-  <head>
-  <style>
-    input,a {
-      box-shadow:inset 0 0 10px 10px green;        
-      display: block;
-      padding: 10px 20px;
-      border: 2px solid #red;
-      border-radius: 90px;
-      margin: 20px auto;
-      font: 400 20px/30px "Arial",sans-serif;
-      cursor: pointer;
-      color: #000;
-    }
-    a {
-      width: 100px;
-      text-align: center;
-      text-decoration: none;
-    }
-    input:hover,
-    a:hover {
-      background-color: #000;
-      color: #fff;
-      transition: all 0.5s;
-    }
-   
-    @media screen and (max-width: 480px) {
-      input {
-        font: 400 40px/40px "Arial",sans-serif;
-      }
-    }
-  </style>
-  </head>
-   
-  <body>
-    <div>
-      <form action="fileupload/?brand=${brand}" method="post" enctype="multipart/form-data">
-        <input type="file" name="filetoupload">
-        <input type="submit">
-      </form>
-      <a href = ${url}/>EXIT</a>
-    </div>
-  </body>
-  </html>  
-    
-  `)
-}); 
-app.post("/upload/fileupload",function(req,res){ 
-  
-  var url =  port == 5000 ? req.protocol +'://' + req.hostname +  `:${port}`:
-              req.protocol +'://' + req.hostname;
-  var brand = req.query.brand;  
-  var form = new formidable.IncomingForm();
-  form.parse(req, function (err, fields, files) {
-   
-    var oldpath = files.filetoupload.path;
-    var newpath = path.join( __dirname,'items',`${brand}`,files.filetoupload.name);
-    fs.rename(oldpath, newpath, function (err) {
-      if (err) {
-        
-        res.send(`<h1>${err}</h1>`)
-      } else {
-        res.write(`
-          <h1>File uploaded to ${brand} directory 
-          <a href = ${url}/>EXIT</a></h1>
-        `);
-        res.end();
-      }
-    });
-  });  
-});       
-      
+
   
 
 

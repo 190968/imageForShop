@@ -1,0 +1,47 @@
+html
+    head
+        title pug
+    style.
+        div {
+            border: 1px solid red;
+            width: 30%;
+            text-align: center;
+            margin: 100px auto;
+        }
+        input,a {
+             display: block;
+             margin: 10px auto;
+             padding: 10;
+             width: 200;
+             font-size: 25px;
+             background-color: #ddd;
+             border: none;
+             color: blue;
+        }
+        a {
+            width: 180;
+            text-align: center;
+            font-size: 25px;
+            border: 1px solid #fff;
+            text-decoration: none;
+        }
+        a:hover {
+            border: 1px solid red;
+        }
+
+
+body
+div 
+    form(action="create/?name=${name}" method="get" enctype="multipart/form-data")
+        input(
+                type="text"
+                placeholder="name catalog"
+                name="name"
+               
+        )
+        input(
+                type="submit"
+                value="create folder" 
+               
+        )    
+    a(href=exit) exit
