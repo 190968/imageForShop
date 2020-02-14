@@ -1,5 +1,6 @@
 html
     head
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,800&display=swap" rel="stylesheet"/>
         title pug
     style.
         div {
@@ -11,29 +12,41 @@ html
         input,a {
              display: block;
              margin: 10px auto;
-             padding: 10;
+            
+             height: 50;
              width: 80%;
-             font-size: 25px;
+             font: 300  25px/50px 'Montcerrat',sans-serif;
              background-color: #ddd;
              border: none;
              color: blue;
              box-sizing: border-box;
+             cursor: pointer;
+            
         }
         a {
             width: 80%;
             text-align: center;
             font-size: 25px;
-            border: 1px solid #fff;
+           
             text-decoration: none;
         }
-        a:hover {
-            border: 1px solid red;
+        a:hover,input:hover {
+            box-shadow: 0 0 10px 1px  silver;
+        }
+        @media (max-width: 600px) {
+            div {
+               width: 100%
+            }
+            a,input {
+                height: 100px;
+            }
         }
 
 
 body
 div 
-    h1 upload file to #{brand}
+    
+    h1 upload file to #{brand.toUpperCase()}   #{folders[0]}  
     form(action= "uploadimage" method="post" enctype="multipart/form-data")        
         input(
             type= "file"
@@ -41,7 +54,10 @@ div
             value = "select file" 
             placeholder= "select file"
         )
-        input(type="submit" value="upload")
+        input(type="submit" value="UPLOAD")
      
    
-    a(href=exit) exit
+    a(href=exit) EXIT
+
+
+    
