@@ -3,10 +3,10 @@ html
     head
         title my Site
     style.
-            .folders a , .add_folder {
-                box-shadow:inset 0 0 5px 5px #ee82ee; 
-                margin: 1%;
-                width: 47%;               
+            a  {
+                box-shadow: inset 0 0 5px 5px #ee82ee; 
+                margin:10px 3%;
+                width: 44%;               
                 border-radius: 50px;      
                 display: inline-block;
                 text-align: center;
@@ -14,55 +14,113 @@ html
                 font: 600 35px/60px "Arial",sans-serif;
                 text-decoration: none;
                 color: #fff;
+                z-index: 0;
+                vertical-align: middle;
+                position: relative;
+            }
+            .a_folders {
+                width: 100%;
+                margin:10px 7%;
             }
            
-            a:hover { 
-                background-color: #ee82ee; 
-               
-            }
-            div.folders {
+            .folders {
                 margin: 5vw auto;
                 width: 70%;
+                padding: 0;           
+            }
+            p {
                
-            
-            }
-            span {
-                float: right;
-                font: 400 20px/60px "Arial",sans-serif;
-                background-color: red;
-                border-radius: 60px;
+                width: 48%;
+                margin: 1%;
+                text-align: center;
                 display: inline-block;
-                height: 60px;
-                width: 60px;
-                visibility: hidden;
+            }
+            span.del, span.rename {               
+                font: 600 30px/50px "Arial",sans-serif;               
+                display: inline-block;
+                height: 50px;
+                width: 50px;
+                z-index: 10;
+                margin-left: -100px;                
+                text-align: center;
+                cursor: pointer;
+                vertical-align: middle;
+                position: relative;
+                right: 0;   
 
             }
-            a:hover span {
-                visibility: visible;
+            span.rename {
+                 margin-right: -100px;
+                 margin-left: 0;
             }
-            @media  (max-width: 800px) {
-            a{
-               width: 47%;
-
-                font: 400 50px/50px "Arial",sans-serif;
+            #two {
+                display: none;
+                width: 90%;
+                border: 1px solird red;
+                text-align: center;
+                margin: 100px auto 0;
+                font: 600 40px/40px "Arial",sans-serif;
             }
-            div.folders {
-                width: 100%;
-                margin: 10px 0;
+            
+            #delete {
+                padding:0 20px;
+                margin: 10px;
+                color: white;
+                background-color: blue;
+                font: 600 40px/40px "Arial",sans-serif;
             }
-
-            }
-            div,
-            body {
-            background-color: #00ffff;
-            }    
+            @media (max-width: 1000px) {
+                a{
+                   
+                    height: 100px;
+                    font: 400 50px/100px "Arial",sans-serif;
+                }
+                .folders {
+                    width: 100%;
+                    margin: 10px 0;
+                }
+                span {
+                    font: 600 40px/60px "Arial",sans-serif;               
+                    display: inline-block;
+                    height: 60px;
+                    width: 60px;
+                    margin-left: -100px;
+                }
+              
+                div,
+                body {
+                background-color: #00ffff;
+                }
+            } 
+           
+   
     body
         div.folders
-            a.add_folder(href = `${url}/createFolder`) create new folder
-            a.add_folder(href = `${url}/upload_base`) upload base      
+            a(href = `${url}/createFolder`) create folder
+            a(href = `${url}/upload_base`) upload base      
        
             h2 Folders:#{folders.length}
+           
             -var one = folders
-            for i in one               
-                a(href= `${url}/items/?brand=${i}`)= i 
-                    span(title="delete folder") del 
+            p#two You wish delete folder
+                span#delete 
+                span.delete
+                    a(href= `${url}`) no 
+                    a(href= `${url}`) yes 
+            div#one
+                for i,index in one
+                    p    
+                        span.rename(title="rename folder", onclick=`play(${i})`) &#x270E;                                   
+                        a.a_folders(href= `${url}/items/?brand=${i}`)= i                                    
+                        span.del(
+                            title="delete folder",
+                            onclick= `play(${index})` 
+                        ) &#x274C;
+
+    script.
+        var two = "#{folders}"
+       const  play = ( b )=>{
+            document.getElementById("one").style.visibility = "hidden"
+            document.getElementById("two").style.display = "block"
+            document.getElementById("delete").innerHTML = two.split(',')[b] +'?'
+        }                   
