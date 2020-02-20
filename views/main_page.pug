@@ -2,7 +2,7 @@ doctype html
 html
     head
         title my Site
-    style.
+        style.
             a,button  {
                 box-shadow: inset 0 0 5px 5px #ee82ee; 
                 margin:10px 2%;
@@ -19,6 +19,14 @@ html
                 border: none;
                 vertical-align: middle;
                 position: relative;
+            }
+            button {
+                display: block;
+                margin: 20px auto;
+                cursor: pointer;
+            }
+            button:hover {
+                border: 2px solid red;
             }
             .a_folders {
                 width: 100%;
@@ -101,8 +109,7 @@ html
                text-align: center;
             }
             @media (max-width: 1000px) {
-                a{
-                   
+                a {                   
                     height: 100px;
                     font: 400 30px/100px "Arial",sans-serif;
                 }
@@ -118,11 +125,9 @@ html
                 }              
                 div,
                 body {
-                background-color: #00ffff;
+                    background-color: #00ffff;
                 }
-            } 
-           
-   
+            }  
     body  
                   
         form#rename(action="/rename?last=last_name" method="get")
@@ -130,6 +135,7 @@ html
                 input#last_name(type="text" name="last_name")          
             input(type="text" name="name" placeholder="input new name" minlength="3" required autofocus)          
             button(type="submit") RENAME
+            a(href = `${url}`) NONE
 
         p#delete You wish delete folder
             span#folder_delete 
@@ -161,6 +167,7 @@ html
 
     script.
         var two = "#{folders}"
+       
         const  rename_folder = ( b ) => {
             document.getElementById("main_block").style.display = "none"
             document.getElementById("rename").style.display = "block"

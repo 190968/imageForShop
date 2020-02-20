@@ -22,7 +22,15 @@ html
                 position: relative;
         }
         a.delete {
-          width: 5%;
+          width: 10%;
+        }
+        .all_image {
+          width: 23%;
+          margin: 1%;
+          cursor: pointer;
+        }
+        .all_image:hover {
+            box-shadow: 0 0 5px 5px #ddd;
         }
         a:hover {
           background-color: #000;
@@ -49,40 +57,88 @@ html
           cursor: pointer;
         }
         p {
-          text-align: center;
-          margin: 10;
+          text-align: center; 
+          width: 100%;        
+          font: 400 30px/40px "Arial",sans-serif;
+         
         }
         p:hover a.delete {
           transition: all 1s;
           visibility: visible;
+        }
+        .block_images {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: space-around;
+          align-items: flex-start;
         }
         @media (max-width: 1000px) {
           a {
             padding: 10px 20px;
             font: 400 30px/40px "Arial",sans-serif;
           }
-          img {
-           
+          img {           
             width: 100%;
+          }
+          .all_image {
+            width: 23%;
           }
         }
    
      
   body
-  div
-      p 
-        a(href = url) EXIT
-        a(href = `${url}/upload_image/?brand=${brand}`) UPLOAD  
+ 
+ 
+   
+  a(href = url) EXIT
+  //- span  #{image.length} files
+  p#name_image  
+    span#name
+    a(class = "delete" href = `${url}/items/?brand=${brand}&number=${n}`) no 
+    a(class = "delete" href = `${url}/delete/?brand=${brand}&name=${to_del}`) yes
+  
+  //- div
+  //-     p 
+  //-       a(href = `${url}/upload_image/?brand=${brand}`) UPLOAD  
             
-        a DELETE
-        a(class = "delete" href = `${url}/items/?brand=${brand}&number=${n}`) no 
-        a(class = "delete" href = `${url}/delete/?brand=${brand}&name=${to_del}`) yes
-    
-      p       
-        img(src = `${url}/items/${brand}/${im}` alt ="no image")
        
     
-      p 
-        a(href = `${url}/items/?brand=${brand}&number=${+n-1}`) prev
-        b #{im}      
-        a(href = `${url}/items/?brand=${brand}&number=${+n + 1}`) next   
+  //-     //- p       
+  //-     //-   img(src = `${url}/items/${brand}/${im}` alt ="no image")
+     
+     
+    
+  //-     p 
+  //-       a(href = `${url}/items/?brand=${brand}&number=${+n-1}`) prev
+  //-       b #{im}      
+  //-       a(href = `${url}/items/?brand=${brand}&number=${+n + 1}`) next 
+  div.block_images 
+     for i,index in image                   
+        img.all_image(
+          src = `${url}/items/${brand}/${i.replace(".jpg","").replace(".webp","")}`
+          alt ="no image"
+          onLeave =`view_name(${index})`
+          onclick =`view_image(${index})`
+         
+        )
+  script. 
+        var img = "#{image}"
+
+        const view_name = ( b ) => {
+          document.getElementById("name").innerHTML = 'img[b]' 
+        }
+
+        const  view_image = ( b ) => {           
+          var size = document.getElementsByTagName("img")[b].style.width
+          var position = document.getElementsByTagName("img")[b].style.position
+          document.getElementById("name_image").style.position = position == "fixed" ? "static" : "fixed"
+          document.getElementById("name_image").style.display = position == "fixed" ? "none" : "blocknp"
+          document.getElementById("name_image").style.top = "20px"
+          document.getElementById("name_image").style.zIndex = 10
+          document.getElementById("name").innerHTML = img.split(",")[b] + ' ' + ' DELETE'      
+          document.getElementsByTagName("img")[b].style.width = size=="80%" ? "23%" : "80%"
+          document.getElementsByTagName("img")[b].style.top = "10px"
+          document.getElementsByTagName("img")[b].style.position = position == "fixed" ? "static" : "fixed"
+           
+        }                                 

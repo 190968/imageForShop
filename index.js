@@ -138,7 +138,7 @@ app.get("/items",function(req,res) {
   let n = num < 0 ? 0 : num > s.length-1 ? s.length-1 : num;
   let to_del = s[n]; 
   let im = s.length !== 0 ? s[n].replace(".jpg","").replace(".webp","") : s[1];   
-  res.render('view_image',{ url: app.locals.url, brand: brand, im: im,n: n});
+  res.render('view_image',{ url: app.locals.url, brand: brand, im: im,n: n, image: s});
 });  
     
   
