@@ -3,6 +3,9 @@ html
     head
         title my Site
         style.
+             body {
+                    background-color: #ccc;
+                }
             a,button  {
                 box-shadow: inset 0 0 5px 5px #ee82ee; 
                 margin:10px 2%;
@@ -38,7 +41,7 @@ html
                 width: 70%;
                 padding: 0;           
             }
-            p {            
+            .one {            
                 width: 48%;
                 margin: 1%;
                 text-align: center;
@@ -66,10 +69,10 @@ html
             span.rename:hover {
                color: maroon;
             }
-            #delete,#rename {
+            #delete,
+            #rename {
                 display: none;
-                width: 90%;
-                border: 1px solird red;
+                width: 90%;                
                 text-align: center;
                 margin: 100px auto 0;
                 font: 600 40px/40px "Arial",sans-serif;
@@ -100,7 +103,7 @@ html
             #folder_rename {
                 padding:0 20px;
                 border-radius: 5px;
-                margin: 10px;
+                margin: 10px 10px 20px;
                 color: white;
                 background-color: blue;
                 font: 300 40px/40px "Arial",sans-serif;
@@ -125,7 +128,7 @@ html
                 }              
                 div,
                 body {
-                    background-color: #00ffff;
+                    background-color: #ccc;
                 }
             }  
     body  
@@ -137,11 +140,14 @@ html
             button(type="submit") RENAME
             a(href = `${url}`) NONE
 
-        p#delete You wish delete folder
-            span#folder_delete 
-            b ?              
+        div#delete
+            p You wish delete folder
+                span#folder_delete 
+                b ?           
+            a(href= `${url}` title="only admin") yes (only admin) 
+            br                
             a(href= `${url}`) no 
-            a(href= `${url}` title="only admin") yes (only admin)                     
+                             
         div#main_block
             div#one                
                 a(href = `${url}/createFolder`) create folder
@@ -151,7 +157,7 @@ html
             -var one = folders           
             div#one
                 for i,index in one
-                    p    
+                    p.one    
                         span.rename(
                             title="rename folder",                            
                             onclick=`rename_folder(${index})`
@@ -170,8 +176,7 @@ html
        
         const  rename_folder = ( b ) => {
             document.getElementById("main_block").style.display = "none"
-            document.getElementById("rename").style.display = "block"
-            //- document.getElementById("folder_rename").innerHTML = two.split(',')[b].toUpperCase()
+            document.getElementById("rename").style.display = "block"          
             document.getElementById("last_name").value = two.split(',')[b]
         }                   
        const  delete_folder = ( b ) => {
