@@ -4,7 +4,7 @@ html
     meta(key="viewport" content="width=device-width,minimum-scale=1,initial-scale=1")        
     style.
         body {
-          background-color:  #00ffff;
+          background-color:  #ccc;
         }
         a {
            box-shadow: inset 0 0 5px 5px #ee82ee; 
@@ -41,6 +41,9 @@ html
           display: inline-block;
           width: auto;
           font-size: 30px;
+          cursor: pointer;
+          padding: 10px;
+          text-decoration: underline;
         }
         img {
           display: inline-block;          
@@ -57,7 +60,8 @@ html
           cursor: pointer;
         }
         p {
-          text-align: center; 
+          text-align: center;
+          display: none; 
           width: 100%;        
           font: 400 30px/40px "Arial",sans-serif;
          
@@ -88,16 +92,34 @@ html
    
      
   body
- 
+  script. 
+      var img = "#{image}"
+      var url = "#{url}"
+      var brand = "#{brand}"
+      const  view_image = ( b ) => {         
+          var size = document.getElementsByTagName("img")[b].style.width
+          var position = document.getElementsByTagName("img")[b].style.position
+          document.getElementById("name_image").style.position = position == "fixed" ? "static" : "fixed"
+          document.getElementById("name_image").style.display = position !== "fixed" ? "block" : "none"
+          document.getElementById("name_image").style.top = "10px"
+          document.getElementById("name_image").style.zIndex = 10
+          document.getElementById("delete").href = url+ '/delete/?brand=' + brand + '&name=' + img.split(",")[b]
+          document.getElementById("name").innerHTML = img.split(",")[b] + ' ' + ' <b>DELETE</b>'      
+          document.getElementsByTagName("img")[b].style.width = size=="80%" ? "23%" : "80%"
+          document.getElementsByTagName("img")[b].style.top = 0
+          document.getElementsByTagName("img")[b].style.position = position == "fixed" ? "static" : "fixed"
+           
+      }                         
  
    
+ 
   a(href = url onEnter='color()') EXIT
   a(href = `${url}/upload_image/?brand=${brand}`) UPLOAD  
-  //- span  #{image.length} files
-  p#name_image  
+ 
+  p#name_image    
     span#name
     a(class = "delete" href = `${url}/items/?brand=${brand}&number=${n}`) no 
-    a(class = "delete" href = `${url}/delete/?brand=${brand}&name=${to_del}`) yes
+    a#delete(class = "delete") yes
   
   //- div
   //-     p 
@@ -123,20 +145,4 @@ html
           onclick =`view_image(${index})`
          
         )
-  script. 
-        var img = "#{image}"
-        
-
-        const  view_image = ( b ) => {           
-          var size = document.getElementsByTagName("img")[b].style.width
-          var position = document.getElementsByTagName("img")[b].style.position
-          document.getElementById("name_image").style.position = position == "fixed" ? "static" : "fixed"
-          document.getElementById("name_image").style.display = position !== "fixed" ? "block" : "none"
-          document.getElementById("name_image").style.top = "10px"
-          document.getElementById("name_image").style.zIndex = 10
-          document.getElementById("name").innerHTML = img.split(",")[b] + ' ' + ' DELETE'      
-          document.getElementsByTagName("img")[b].style.width = size=="80%" ? "23%" : "80%"
-          document.getElementsByTagName("img")[b].style.top = 0
-          document.getElementsByTagName("img")[b].style.position = position == "fixed" ? "static" : "fixed"
-           
-        }                                 
+         
