@@ -25,12 +25,12 @@ html
           width: 10%;
         }
         .all_image {
-          width: 23%;
-          margin: 0 0.5% 1%;
+          width: 24%;
+          margin: 0 0 1%;
           cursor: pointer;
         }
         .all_image:hover {
-            box-shadow: 0 0 5px 5px #ddd;
+            box-shadow: 0 0 5px 5px #bbb;
         }
         a:hover {
           background-color: #000;
@@ -59,6 +59,12 @@ html
         .del_block {
           cursor: pointer;
         }
+        .count_files {
+          float: right;
+          font: italic bold 30px/65px 'Georgia' , serif;
+          padding-right: 20px;
+          color: red;
+        }
         p {
           text-align: center;
           display: none; 
@@ -80,10 +86,10 @@ html
         @media (max-width: 1000px) {
           a {
             padding: 10px 20px;
-            font: 400 30px/40px "Arial",sans-serif;
+            font: 400 18px/40px "Arial",sans-serif;
           }
           img {           
-            width: 100%;
+            width: 100%;            
           }
           .all_image {
             width: 23%;
@@ -95,9 +101,10 @@ html
   script. 
       var img = "#{image}"
       var url = "#{url}"
-      var brand = "#{brand}"
+      var brand = "#{brand}" 
+      var screen_width = screen.width;
       const  view_image = ( b ) => {         
-          var size = document.getElementsByTagName("img")[b].style.width
+          var size_image = document.getElementsByTagName("img")[b].style.width
           var position = document.getElementsByTagName("img")[b].style.position
           document.getElementById("name_image").style.position = position == "fixed" ? "static" : "fixed"
           document.getElementById("name_image").style.display = position !== "fixed" ? "block" : "none"
@@ -105,17 +112,17 @@ html
           document.getElementById("name_image").style.zIndex = 10
           document.getElementById("delete").href = url+ '/delete/?brand=' + brand + '&name=' + img.split(",")[b]
           document.getElementById("name").innerHTML = img.split(",")[b] + ' ' + ' <b>DELETE</b>'      
-          document.getElementsByTagName("img")[b].style.width = size=="80%" ? "23%" : "80%"
+          document.getElementsByTagName("img")[b].style.width = size_image == "100%" ? "24%" :  "100%" 
           document.getElementsByTagName("img")[b].style.top = 0
           document.getElementsByTagName("img")[b].style.position = position == "fixed" ? "static" : "fixed"
            
       }                         
- 
+     
    
  
-  a(href = url onEnter='color()') EXIT
+  a(href = url onEnter='color()' ) EXIT
   a(href = `${url}/upload_image/?brand=${brand}`) UPLOAD  
- 
+  span.count_files #{image.length} files
   p#name_image    
     span#name
     a(class = "delete" href = `${url}/items/?brand=${brand}&number=${n}`) no 
@@ -141,7 +148,7 @@ html
         img.all_image(
           src = `${url}/items/${brand}/${i.replace(".jpg","").replace(".webp","")}`
           alt ="no image"
-          onLeave =`view_name(${index})`
+          onLeave =`view_name()`
           onclick =`view_image(${index})`
          
         )

@@ -1,0 +1,104 @@
+doctype html
+html
+    head
+        title my Site
+        style.
+             body {
+                    background-color: #ccc;
+                }
+            p.one span {
+                text-align: center;
+                display: inline-block;
+                width: 13%;
+                font-size: 18px;
+            }
+            p.one {
+                padding: 10px 0;
+                margin: 0;
+            }
+            p.one:hover {
+                cursor: pointer;
+                background-color: #fff;    
+            }
+            p.main span {
+                text-align: center;
+                display: inline-block;
+                width: 13%;
+                font-size: 18px;
+            }
+            #index {
+                width: 5%;
+            }
+            p.main {                
+                margin: 0 auto;
+                position: fixed;
+                width: 98%;
+                top: 0;
+                padding: 10px 0;
+                font-weight: 600;
+                background-color: #fff;
+            }
+            #rename {
+                height: 300px;
+                width: 80%;
+                position: fixed;
+                top: 200px;
+                left: 10%;
+                background-color: #fff;
+                display: none;
+            }
+            .close {
+                position: fixed;
+                top: 200px;
+                background-color: #fff;
+                padding: 20px;
+            }
+
+body   
+    -var one = base
+        a.close(href="/") exit           
+        div#one
+            p.main
+                span#index №  
+                span brand
+                span model
+                span gender
+                span color
+                span size
+                span cost
+                span sale
+            p.one           
+            for i,index in one
+                p.one(onclick=`replace(i.color)`)
+                    span#index= index+1 
+                    span= i.brand
+                    span= i.model
+                    span= i.gender
+                    span= i.color
+                    span= i.size
+                    span= i.cost 
+                    span= i.sale
+            div#rename
+                p
+                    form(action="/write?last=last_name" method="get")                        
+                        input#brand(type="text" name="brand" value="")          
+                        input#color(type="text" name="color" value="")
+                        input(type="text" name="last_name")          
+                        input(type="text" name="name" required autofocus)             
+                        button(type="submit") REPLACE
+                button(onclick="close()") X
+                p#bob
+           
+
+script.
+        var two = "#{folders}"
+       
+        const  replace = ( a ) => {
+            document.getElementById("rename").style.display = "block"
+            document.getElementById("brand").value = a.toString()
+            //- document.getElementById("color").value = c
+        }
+        const close = () => {
+            document.getElementById("rename").style.display = "none"
+        }                   
+       

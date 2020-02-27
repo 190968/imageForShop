@@ -3,11 +3,12 @@ var fs = require("fs");
 var http = require("http");
 var path = require("path");
 var cors = require("cors");
-var app = express();
 var formidable = require("formidable");
+var Mongoclient = require("mongodb").MongoClient;
+var app = express();
 
-const readline = require('readline');
-const {google} = require('googleapis');
+
+
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -92,10 +93,46 @@ app.get("/rename",(req,res)=>{
 });
 
 
+//connect to MongoDB
 
+const uri = "mongodb+srv://alex:alex@cluster0alex-mvffj.gcp.mongodb.net/my?retryWrites=true";
+// app.use(bodyParser.json({ inflate: true, limit: '2000kb', type: 'txt/csv'}));
+
+// write to mongodb
+app.post('/add_to_base',(req,res)=>{
+    Mongoclient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true },function(err, db){
+        if ( err ) throw err;
+        var dbo = db.db("my");
+          fs.readFile(path.join(__dirname,'base.json'),'utf8',(err,data)=>{
+           
+            if ( err ) throw err;
+            dbo.collection('base').insertMany( JSON.parse(data) , (err, res)=>{
+                if ( err ) throw err;
+                console.log(`inserted: ${res.insertedCount}`);
+            });
+        });
+    });
+
+});
+app.all("/readBase",function(req,res){
+  let brand = req.query.brand; 
+  Mongoclient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true },function(err, db){
+    if ( err ) throw err;
+    var dbo = db.db("my");       
+        const s = dbo.collection("base").find({ "brand" : brand }).toArray((err,data)=>{
+            if ( err ) throw err;
+            
+        
+            res.render('base_brand',{ base:data });  
+
+        });
+           
+            
+      });
+ 
+});
 
 //uploadBase
-
 app.post("/uploadBase",(req,res)=>{  
  
     var url =  port == 5000 ? req.protocol +'://' + req.hostname +  `:${port}`:
@@ -170,6 +207,13 @@ app.get("/delete",function(req,res){
     console.log(`file ${name} deleted`);
   });
 });
+
+
+// read from mongodb
+
+
+
+
 
 // page response base
 app.get("/base", function(req,res) { 
