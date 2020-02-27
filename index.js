@@ -119,18 +119,32 @@ app.all("/readBase",function(req,res){
   Mongoclient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true },function(err, db){
     if ( err ) throw err;
     var dbo = db.db("my");       
-        const s = dbo.collection("base").find({ "brand" : brand }).toArray((err,data)=>{
-            if ( err ) throw err;
-            
-        
-            res.render('base_brand',{ base:data });  
-
-        });
-           
-            
-      });
- 
+    const s = dbo.collection("base").find({ "brand" : brand }).toArray((err,data)=>{
+      if ( err ) throw err;       
+      res.render('base_brand',{ base:data });
+    });           
+  });
 });
+
+//update iten in base
+
+app.get("/write_to_base",function(req,res){
+  let id = req.query.id;
+  let brand = req.query.brand;
+  let cost = req.query.cost;
+  let sale = req.query.sale;
+  Mongoclient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true },function(err, db){
+    if ( err ) throw err;
+    var dbo = db.db("my");       
+    dbo.collection("base").updateOne({ "id" : +id },{$set:{"cost": +cost,"sale": +sale}},{ upsert: true },
+    (err,date)=>{
+      if ( err ) throw err;
+      console.log(date.result.nModified);       
+      res.redirect(`/readBase?brand=${brand}`);
+    });           
+  });
+});
+
 
 //uploadBase
 app.post("/uploadBase",(req,res)=>{  
