@@ -6,8 +6,7 @@ html
              body {
                     background-color: #ccc;
                 }
-            .a_folders,
-            .create_update,
+            .a_folders,            
             button  {
                 box-shadow: inset 0 0 5px 5px #ee82ee; 
                 margin:10px 2%;
@@ -24,6 +23,18 @@ html
                 border: none;
                 vertical-align: middle;
                 position: relative;
+            }
+            .menu {
+                width: 30%;
+                text-align: center;
+                color: #fff;
+                margin: 0 1%;
+                text-decoration: none;                
+                display: inline-block;
+                font: 600 35px/30px "Arial",sans-serif;
+            }
+            .menu:hover {
+                 color: red;   
             }
             button {
                 display: block;
@@ -42,11 +53,20 @@ html
                 width: 70%;
                 padding: 0;           
             }
-            .one {            
-                width: 48%;
-                margin: 1%;
-                text-align: right;
+            #two { 
+               
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+               
+            }         
+            .one { 
+               
+                box-sizing: border-box;                   
+                width: 46.5%;
+                margin: 1%;                
                 display: inline-block;
+                text-align: right;
             }
             span.del, span.rename {               
                 font: 600 30px/50px "Arial",sans-serif;               
@@ -63,21 +83,21 @@ html
 
             }
             span.rename {
-                 margin-right: -90px;
-                 margin-left: 0;
+                 margin-right: -85px;
+                 vertical-align: middle;
                  color: green;
             }
             a.a_base {
-                 margin-right: -90px;
+                 margin-right: -85px;
+                 vertical-align: middle;
                  text-decoration: none;
-                 font: 600 20px/60px "Arial",sans-serif;   
+                 font: 800 35px/50px "Arial",sans-serif;   
                  position: relative;
-                 z-index: 10;
+                 z-index: 10;              
                 
-                 color: red;
             }
             a.a_base:hover {
-               
+               color: red;
             }
             span.rename:hover {
                color: maroon;
@@ -124,6 +144,7 @@ html
             }
             h1 {
                text-align: center;
+               width: 100%;
             }
             @media (max-width: 1000px) {
                 a {                   
@@ -163,11 +184,12 @@ html
             a(href= `${url}`) no 
                              
         div#main_block
-            div#one                
-                a.create_update(href = `${url}/createFolder`) create folder
-                a.create_update(href = `${url}/upload_base`) upload base 
+            div#two                
+                a.menu(href = `${url}/createFolder`) create folder
+                a.menu(href = `${url}/upload_base`) upload base 
+                a.menu(href = `${url}/questions`) questions 
                   
-                h1 #{folders.length} folders
+            h1 #{folders.length} folders
            
             -var one = folders           
             div#one
@@ -176,13 +198,13 @@ html
                         span.rename(
                             title="rename folder",                            
                             onclick=`rename_folder(${index})`
-                        ) &#x270E;
-                        a.a_base(href= `${url}/readBase/?brand=${i}`) &#10067;                                         
+                            ) &#x270E;
+                        a.a_base(href= `${url}/readBase/?brand=${i}`) ?                                          
                         a.a_folders(href= `${url}/items/?brand=${i}`)= i                                    
                         span.del(
                             title="delete folder",
                             onclick= `delete_folder(${index})` 
-                        ) &#x274C;
+                            ) &#x274C;
         
 
         

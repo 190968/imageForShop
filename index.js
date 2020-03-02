@@ -54,20 +54,28 @@ app.get("/createFolder",(req,res)=>{
 
 // pug form  for upload image
 app.get("/upload_image",(req,res)=>{ 
-  app.locals.brand = req.query.brand; 
+  let brand = req.query.brand;
+  let model = req.query.model;
+  let number = req.query.number; 
   let s =  fs.readdirSync((__dirname + "/items"));  
-  res.render('image',{exit: app.locals.url, brand: app.locals.brand, folders: s} )
+  res.render('upload_image',{exit: app.locals.url, brand: brand, folders: s, model: model,number: number} )
 });  
 
 
 
 app.post("/upload_image/uploadimage",(req,res)=>{  
   let brand = req.query.brand;
-  console.log(brand);   
+  let model = req.query.model;
+  let number = req.query.number;
+  console.log(`${brand}  and  ${model}`);   
   var form = new formidable.IncomingForm();
   form.parse(req, function (err, fields, files) {   
     var oldpath = files.imageupload.path;
-    var newpath = path.join( __dirname,'items',app.locals.brand,files.imageupload.name);
+    var name = files.imageupload.name;
+    var type = name.substr(name.indexOf('.'),20);
+    console.log(model + number + type);
+
+    var newpath = path.join( __dirname,'items',brand,model + number + type);
 
     fs.copyFile(oldpath, newpath, function (err) {   
       if (err) {
@@ -99,7 +107,7 @@ const uri = "mongodb+srv://alex:alex@cluster0alex-mvffj.gcp.mongodb.net/my?retry
 // app.use(bodyParser.json({ inflate: true, limit: '2000kb', type: 'txt/csv'}));
 
 // write to mongodb
-app.post('/add_to_base',(req,res)=>{
+app.post('/add_to_mongobase',(req,res)=>{
     Mongoclient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true },function(err, db){
         if ( err ) throw err;
         var dbo = db.db("my");
@@ -113,6 +121,7 @@ app.post('/add_to_base',(req,res)=>{
         });
     });
 
+
 });
 app.all("/readBase",function(req,res){
   let brand = req.query.brand; 
@@ -121,13 +130,66 @@ app.all("/readBase",function(req,res){
     var dbo = db.db("my");       
     const s = dbo.collection("base").find({ "brand" : brand }).toArray((err,data)=>{
       if ( err ) throw err;       
-      res.render('base_brand',{ base:data });
+      res.render('base_brand',{ base:data, url:app.locals.url, brand:brand });
     });           
   });
 });
 
-//update iten in base
+//add item to base
+app.get("/add_to_base_item",function(req,res){
+  let id = 1000;
+  let brand = req.query.brand;
+  let model = req.query.model;
+  let gender = req.query.gender;
+  let color = req.query.color;
+  let size = req.query.size;
+  let cost = req.query.cost;
+  let sale = req.query.sale;
+  Mongoclient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true },function(err, db){
+    if ( err ) throw err;
+    var dbo = db.db("my");
+    var set = { "id" : +id ,
+              "cost": +cost,
+              "sale": +sale,
+              "brand": brand,
+              "model": model,
+              "gender": gender,
+              "color": color,
+              "size": size             
+            };       
+    dbo.collection("base").insertOne(set,(err,date)=>{
+      if ( err ) throw err;
+      console.log(date);       
+      res.redirect(`/readBase?brand=${brand}`);
+    });           
+  });
+});
 
+//question
+
+app.get("/question",function(req,res){
+ 
+  let name = req.query.name;
+  let email = req.query.email;
+  let question = req.query.question;
+  Mongoclient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true },function(err, db){
+    if ( err ) throw err;
+    var dbo = db.db("my");
+    var set = { 
+              "date": new Date,
+              "name": name,
+              "email": email,
+              "question": question,
+            };       
+    dbo.collection("questions").insertOne(set,(err,date)=>{
+      if ( err ) throw err;        
+      res.send("good");
+    });           
+  });
+});
+
+
+//update item in base
 app.get("/write_to_base",function(req,res){
   let id = req.query.id;
   let brand = req.query.brand;
@@ -181,7 +243,6 @@ app.get("/upload_base",(req,res)=>{
 
 // Page with image
 app.get("/items",function(req,res) {
-
   let brand = req.query.brand;
   let s =  fs.readdirSync((__dirname + `/items/${brand}`));
   console.log(s);
@@ -223,7 +284,6 @@ app.get("/delete",function(req,res){
 });
 
 
-// read from mongodb
 
 
 

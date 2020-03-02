@@ -47,8 +47,8 @@ html
 body
 div 
     
-    h1 Upload file to folder #{brand.toUpperCase()}  with name #{model}  
-    form(action= `uploadimage?brand=${brand}&model=${model}$number=${number}` method="post" enctype="multipart/form-data")        
+    h1 Upload file to folder #{brand.toUpperCase()}  with name #{model} to #{number} 
+    form(action= `uploadimage?brand=${brand}&model=${model}&number=${number}` method="post" enctype="multipart/form-data")        
         input(
             type= "file"
             name= "imageupload"  

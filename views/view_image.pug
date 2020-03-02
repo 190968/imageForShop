@@ -120,8 +120,8 @@ html
      
    
  
-  a(href = url onEnter='color()' ) EXIT
-  a(href = `${url}/upload_image/?brand=${brand}`) UPLOAD  
+  a(href = url) EXIT
+  //- a(href = `${url}/upload_image/?brand=${brand}`) UPLOAD  
   span.count_files #{image.length} files
   p#name_image    
     span#name
@@ -147,8 +147,7 @@ html
      for i,index in image                   
         img.all_image(
           src = `${url}/items/${brand}/${i.replace(".jpg","").replace(".webp","")}`
-          alt ="no image"
-          onLeave =`view_name()`
+          alt ="no image"         
           onclick =`view_image(${index})`
          
         )

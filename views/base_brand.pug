@@ -14,10 +14,11 @@ html
                 text-align: center;
                 display: inline-block;
                 width: 13%;
+                vertical-align: middle;
                 font-size: 18px;
             }
             form.one {
-                padding: 10px 0;
+                padding:  0;
                 margin: 0;
             }
             form.one:hover {
@@ -56,17 +57,48 @@ html
             }
             .close {
                 position: fixed;
-                top: 200px;
-               
-                background-color: rgba(255, 255, 255, 0.5);
-                padding: 20px;
+                top: 0;
+                z-index: 20;
+                text-decoration: none;               
+                background-color: rgba(255, 255, 255);
+                padding: 15px;
             }
-            input {
-                width: 5%;
-                margin: 0 3%;
-                font-size: 20px;
+            .close:hover {
+                 background-color: #ccc;
+            }
+            .add {
+                position: fixed;
+                top: 0;
+                left: 97%;
+                color: red;
+                z-index: 20;
+                text-decoration: none;               
+                background-color: rgba(255, 255, 255);
+                padding: 15px;
+            }
+            .add:hover {
+                 background-color: #ccc;
+            }
+           
+            #five {
+                width: 2.5%;
+                margin: 0 1%;
+                font-size: 18px;
                 text-align: center;
+                padding: 0 5px;
+            }
+            input,
+            select,
+            .add_item {
                 padding: 10px;
+                font-size: 18px;
+                width: 12%;
+                display: inline-block;
+                margin: 5px;
+            }
+            p.main .teen,
+            .teen {
+                 width: 8%;
             }
             p.one span.write {
                 font-size: 20px;               
@@ -74,49 +106,112 @@ html
             #id {
                 display: none;
             }
-            .write {
-                margin-left: 10px;
+            #teen {
+                width: 10%;
+            }
+            #image {
+                width: 17%;
+               
+                padding: 0;
+            }
+            #image a {
+                text-decoration: none;
+                width: 0;
+                height: 200px;
+            }
+            #add_item {
+                text-align: center;
+                padding: 0;
+                width: 90%;
+                height: 200px;
+                display: none;
+                position: fixed;
+                top: 200px;
+                left: 5%;
+                background-color: white;
+            }
+            .write,
+            #save {
+                margin-left: 20px;
+            }
+            img {
+                width: 17%;
+                height: 5%;
+                box-sizing: border-box;
+                background-color: silver;
+                margin: 0 5px;
+                border: 1px solid red;
             }    
 body   
     -var one = base
-        a.close(href="/" title="exit") &#10060;          
+   
+   
+        a.close(href="/" title="exit") &#11013;
+        a.add(title="add item" onclick='open_add()') &#10010;              
         div
-            p.main
-                span#index №  
-                span brand
+            p.main               
+                span#image image  
+                span brand 
                 span model
-                span gender
-                span color
+                span.teen gender
+                span.teen color
                 span size
-                span cost
-                span sale
+                span#five cost
+                span#five sale
                 span#save save
             p.one           
             for i,index in one               
                     form.one(action="/write_to_base" method="get")
                         input#id(type="text" value=i.id name="id")
-                        input#id(type="text" value=i.brand name="brand")    
-                        span#index= index+1 
+                        input#id(type="text" value=i.brand name="brand")                       
+                        span#image
+                            a(href = `${url}/upload_image/?brand=${i.brand}&model=${i.model}_${i.color}&number=`)
+                                img(src=`${url}/items/${i.brand}/${i.model}_${i.color}` alt="no" )
+                            a(href = `${url}/upload_image/?brand=${i.brand}&model=${i.model}_${i.color}&number=1`)    
+                                img(src=`${url}/items/${i.brand}/${i.model}_${i.color}1`  alt="no")
+                            a(href = `${url}/upload_image/?brand=${i.brand}&model=${i.model}_${i.color}&number=2`)
+                                img(src=`${url}/items/${i.brand}/${i.model}_${i.color}2` alt="no" )
                         span= i.brand
                         span= i.model
-                        span= i.gender
-                        span= i.color
+                        span.teen= i.gender
+                        span.teen= i.color
                         span= i.size
-                        input(type="text" value=i.cost name="cost") 
-                        input(type="text" value=i.sale name="sale")
+                        input#five(type="text" value=i.cost name="cost") 
+                        input#five(type="text" value=i.sale name="sale")
                         button.write(type="submit" title="write to base") &#x270E;
+                        button.write(title="delete item")  &#10006;
+        div#add_item
+               button.write(title="close" onclick="close_add()" style="float: left;margin:0")  &#10006;   
+               h2 ADD ITEM
+               form.one(action="/add_to_base" method="get")
+                        input#id(type="text" name="id")
+                        input(type="text"  value=`${brand}` name="brand")
+                        input(type="text" placeholder="model" name="model" required)
+                        select(name="gender" required)
+                            option(name="men" value="men") men
+                            option(name="women" value="women") women
+                            option(name="girl" value="girl") girl
+                            option(name="boy" value="boy") boy
+                        input(type="text" placeholder="size" name="size" required)      
+                        input(type="text" placeholder="color" name="color" required)   
+                        input#teen(type="text" placeholder="cost $" name="cost" required) 
+                        input#teen(type="text" placeholder="sale %" name="sale")
+                        
+                        
+                        button.add_item(type="submit" title="add to base" style="width: 200px") ADD ITEM
+                                  
            
            
 
 script.
         var two = "#{folders}"
        
-        const  replace = ( a ) => {
-            document.getElementById("rename").style.display = "block"
-            document.getElementById("brand").value = a.toString()
-            //- document.getElementById("color").value = c
+        const  open_add = ( a ) => {
+            document.getElementById("add_item").style.display = "block"
+           
+           
         }
-        const close = () => {
-            document.getElementById("rename").style.display = "none"
+        const close_add = () => {
+            document.getElementById("add_item").style.display = "none"
         }                   
        
