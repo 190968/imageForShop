@@ -17,7 +17,13 @@ html
                 vertical-align: middle;
                 font-size: 18px;
             }
-           
+            p.main span {
+                text-align: center;
+                display: inline-block;
+                
+                 font: 600 2vw/50px 'Arial', sans-serif;
+               
+            }
            
            
             #index,
@@ -26,22 +32,22 @@ html
                 width: 4%;
                 color: red;
             }
-            span.main_name {
-                width: 10%;               
+            .main_name {
+                width: 15%;               
                 text-align: center;               
                 display: inline-block;               
-                font: 600 20px/50px 'Arial', sans-serif;
+               
             }
             #name {
                 background-color: #ccc;
                 border: none;
-                width: 10%;
+                width: 15%;
                
                 text-align: center;
                
                 display: inline-block;
                
-                font: 400 18px/50px 'Arial', sans-serif;
+                font: 400 1.5vw/50px 'Arial', sans-serif;
             }    
             p.main {                
                 margin: 0 auto;
@@ -62,37 +68,31 @@ html
             .close:hover {
                  background-color: #ccc;
             }   
-            span.main_answer {
-                width: 20%;
-                 display: inline-block;
+            .main_answer,
+            .answer {
+                width: 20%;                
                 text-align: center;
                 display: inline-block;
                
-                font: 600 20px/50px 'Arial', sans-serif;
+                font: 300 2vw/5vw 'Arial', sans-serif;
             }
             
-            .answer,           
-            .add_item {
-                padding: 10px;
-                font-size: 18px;
-                width: 23%;
-                display: inline-block;
-                margin: 5px;
-            }            
-            p.one span.write {
-                font-size: 20px;               
-            }           
+            .answer {
+                font: 300 1.22vw/3vw 'Arial', sans-serif;
+            }     
+            
+           
            
             .write {
                 vertical-align: middle;
                 cursor: pointer;
-                margin-left: 2px;
-                height: 50px;
-                width: 50px;
+                margin-left: 0.2vw;
+                height: 4vw;
+                width: 4vw;
                 box-sizing: border-box;
                 background-color: green;
                 color: #fff;
-                font-size: 27px;
+                font: 300 3vw/4vw 'Arial', sans-serif;
             }
            
 body   
@@ -117,19 +117,4 @@ body
                         input.answer(type="text" value=i.question name="question")                        
                         input.answer(type="text" name="answer" value=i.answer)
                         button.write(type="submit" title="answer") &#x270E;
-                        button.write(title="delete question")  &#10006;
-       
-           
-
-script.
-        var two = "#{folders}"
-       
-        const  open_add = ( a ) => {
-            document.getElementById("add_item").style.display = "block"
-           
-           
-        }
-        const close_add = () => {
-            document.getElementById("add_item").style.display = "none"
-        }                   
-       
+                        button.write(title="delete question")  &#10006;       

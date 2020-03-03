@@ -10,6 +10,7 @@ var nodemailer = require('nodemailer');
 
 
 app.set('view engine', 'pug');
+
 app.set('views', path.join(__dirname, 'views'));
 
 app.use(cors());
@@ -22,21 +23,24 @@ app.use(function(req, res, next) {
   next();
 });
 
+const port = process.env.PORT||5000;
+// 
 
 
-var transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: '19ham09@gmail.com',
-    pass: '1q@W3e$R'
-  }
-});
 
+// send answer to user mail
 app.get("/send_answer",(req,res)=>{
-  var email = req.query.email;
-  console.log(email);
+  var email = req.query.email; 
   var name = req.query.name;
   var answer = req.query.answer;
+  var answer = req.query.pass;
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: '19ham09@gmail.com',
+      pass: pass
+    }
+  });
   var mailOptions = {
     from: '19ham09@gmail.com',
     to: email,
@@ -66,7 +70,7 @@ app.get("/send_answer",(req,res)=>{
   });   
 });
 
-const port = process.env.PORT||5000;
+
 //  Main page
 app.get("/",function(req,res) {
   app.locals.url =  port == 5000 ? req.protocol +'://' + req.hostname +  `:${port}`:
