@@ -6,7 +6,7 @@ var cors = require("cors");
 var formidable = require("formidable");
 var Mongoclient = require("mongodb").MongoClient;
 var app = express();
-
+var nodemailer = require('nodemailer');
 
 
 app.set('view engine', 'pug');
@@ -24,8 +24,47 @@ app.use(function(req, res, next) {
 
 
 
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: '19ham09@gmail.com',
+    pass: '1q@W3e$R'
+  }
+});
 
+app.get("/send_answer",(req,res)=>{
+  var email = req.query.email;
+  console.log(email);
+  var name = req.query.name;
+  var answer = req.query.answer;
+  var mailOptions = {
+    from: '19ham09@gmail.com',
+    to: email,
+    subject: 'This is answer from ALLforRUN.by',
+    text: `<h1>Hello ${name} this is ALLforRUN.by. This is my answer ${answer} </h1>`
+  };
+  
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
 
+      Mongoclient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true },function(err, db){
+        if ( err ) throw err;
+        var dbo = db.db("my");       
+          dbo.collection("questions").updateOne({ "email" : email },{$set:{"answer": answer}},{ upsert: true },(err)=>{
+            if ( err ) throw err;
+            const s = dbo.collection("questions").find().toArray((err,data)=>{
+              if ( err ) throw err;
+          
+
+          res.render('question',{ base:data, url:app.locals.url });
+        });
+      });           
+      });
+    }
+  });   
+});
 
 const port = process.env.PORT||5000;
 //  Main page
@@ -123,6 +162,23 @@ app.post('/add_to_mongobase',(req,res)=>{
 
 
 });
+//read questions from mongoDB
+
+app.get("/question",function(req,res){
+ 
+  Mongoclient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true },function(err, db){
+    if ( err ) throw err;
+    var dbo = db.db("my");       
+    const s = dbo.collection("questions").find().toArray((err,data)=>{
+      if ( err ) throw err;       
+      res.render('question',{ base:data, url:app.locals.url });
+    });           
+  });
+});
+
+
+//read base from mongoDB
+
 app.all("/readBase",function(req,res){
   let brand = req.query.brand; 
   Mongoclient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true },function(err, db){
@@ -165,9 +221,9 @@ app.get("/add_to_base_item",function(req,res){
   });
 });
 
-//question
+//add question to mongoDB
 
-app.get("/question",function(req,res){
+app.get("/write_question",function(req,res){
  
   let name = req.query.name;
   let email = req.query.email;

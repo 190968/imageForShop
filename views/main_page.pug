@@ -54,11 +54,18 @@ html
                 padding: 0;           
             }
             #two { 
-               
+                background-color: #ddd;
+                margin: 20px auto;
+                border: 1px solid #fff;
+                padding: 20px;
                 display: flex;
                 flex-direction: row;
                 justify-content: space-between;
                
+            }
+            #one {
+                 border: 1px solid #fff;
+                 background-color: #ddd;
             }         
             .one { 
                
@@ -187,9 +194,9 @@ html
             div#two                
                 a.menu(href = `${url}/createFolder`) create folder
                 a.menu(href = `${url}/upload_base`) upload base 
-                a.menu(href = `${url}/questions`) questions 
+                a.menu(href = `${url}/question`) questions 
                   
-            h1 #{folders.length} folders
+            //- h1 #{folders.length} folders
            
             -var one = folders           
             div#one

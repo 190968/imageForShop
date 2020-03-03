@@ -1,0 +1,135 @@
+doctype html
+html
+    head
+        title my Site
+        style.
+            body {
+                    background-color: #ccc;
+                    margin: 0;
+            }
+            div {
+                padding-top: 30px;
+            }
+            form span {
+                text-align: center;
+                display: inline-block;
+                width: 20%;
+                vertical-align: middle;
+                font-size: 18px;
+            }
+           
+           
+           
+            #index,
+            #save,
+            p.one span.write {
+                width: 4%;
+                color: red;
+            }
+            span.main_name {
+                width: 10%;               
+                text-align: center;               
+                display: inline-block;               
+                font: 600 20px/50px 'Arial', sans-serif;
+            }
+            #name {
+                background-color: #ccc;
+                border: none;
+                width: 10%;
+               
+                text-align: center;
+               
+                display: inline-block;
+               
+                font: 400 18px/50px 'Arial', sans-serif;
+            }    
+            p.main {                
+                margin: 0 auto;
+                position: fixed;
+                width: 100%;
+                top: 0;               
+                background-color: #fff;
+            }
+            
+            .close {
+                position: fixed;
+                top: 0;
+                z-index: 20;
+                text-decoration: none;               
+                background-color: rgba(255, 255, 255);
+                padding: 15px;
+            }
+            .close:hover {
+                 background-color: #ccc;
+            }   
+            span.main_answer {
+                width: 20%;
+                 display: inline-block;
+                text-align: center;
+                display: inline-block;
+               
+                font: 600 20px/50px 'Arial', sans-serif;
+            }
+            
+            .answer,           
+            .add_item {
+                padding: 10px;
+                font-size: 18px;
+                width: 23%;
+                display: inline-block;
+                margin: 5px;
+            }            
+            p.one span.write {
+                font-size: 20px;               
+            }           
+           
+            .write {
+                vertical-align: middle;
+                cursor: pointer;
+                margin-left: 2px;
+                height: 50px;
+                width: 50px;
+                box-sizing: border-box;
+                background-color: green;
+                color: #fff;
+                font-size: 27px;
+            }
+           
+body   
+    -var one = base
+   
+   
+        a.close(href="/" title="exit") &#11013;
+        a.add(title="add item" onclick='open_add()') &#10010;              
+        div
+            p.main               
+                span.main_answer date
+                span.main_name name 
+                span.main_name email               
+                span.main_answer question
+                span.main_answer answer               
+            p.one           
+            for i,index in one               
+                    form.one(action="/send_answer" method="get")
+                        span= i.date
+                        input#name(type="text" value=i.name name="name") 
+                        input#name(type="text" value=i.email name="email")
+                        input.answer(type="text" value=i.question name="question")                        
+                        input.answer(type="text" name="answer" value=i.answer)
+                        button.write(type="submit" title="answer") &#x270E;
+                        button.write(title="delete question")  &#10006;
+       
+           
+
+script.
+        var two = "#{folders}"
+       
+        const  open_add = ( a ) => {
+            document.getElementById("add_item").style.display = "block"
+           
+           
+        }
+        const close_add = () => {
+            document.getElementById("add_item").style.display = "none"
+        }                   
+       
