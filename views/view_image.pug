@@ -100,49 +100,45 @@ html
   body
   script. 
       var img = "#{image}"
+      var width = screen.width
+     
       var url = "#{url}"
       var brand = "#{brand}" 
-      var screen_width = screen.width;
+     
+      var screen = screen.width - screen.height
+      var screen_width = screen.width
+
       const  view_image = ( b ) => {         
           var size_image = document.getElementsByTagName("img")[b].style.width
           var position = document.getElementsByTagName("img")[b].style.position
+          
           document.getElementById("name_image").style.position = position == "fixed" ? "static" : "fixed"
           document.getElementById("name_image").style.display = position !== "fixed" ? "block" : "none"
           document.getElementById("name_image").style.top = "10px"
           document.getElementById("name_image").style.zIndex = 10
           document.getElementById("delete").href = url+ '/delete/?brand=' + brand + '&name=' + img.split(",")[b]
-          document.getElementById("name").innerHTML = img.split(",")[b] + ' ' + ' <b>DELETE</b>'      
-          document.getElementsByTagName("img")[b].style.width = size_image == "100%" ? "24%" :  "100%" 
+          document.getElementById("name").innerHTML = img.split(",")[b] + ' ' + ' <b>DELETE</b>'
           document.getElementsByTagName("img")[b].style.top = 0
           document.getElementsByTagName("img")[b].style.position = position == "fixed" ? "static" : "fixed"
+          screen > 0 ? 
+          document.getElementsByTagName("img")[b].style.width = (size_image == "80%") ? "24%" : "80%"        
+          :      
+          document.getElementsByTagName("img")[b].style.width = (size_image == "100%") ? "24%" : "100%"
+
+         
            
       }                         
      
    
  
-  a(href = url) EXIT
-  //- a(href = `${url}/upload_image/?brand=${brand}`) UPLOAD  
+  a(href = url) EXIT 
   span.count_files #{image.length} files
   p#name_image    
     span#name
     a(class = "delete" href = `${url}/items/?brand=${brand}&number=${n}`) no 
     a#delete(class = "delete") yes
   
-  //- div
-  //-     p 
-  //-       
-            
-       
-    
-  //-     //- p       
-  //-     //-   img(src = `${url}/items/${brand}/${im}` alt ="no image")
-     
-     
-    
-  //-     p 
-  //-       a(href = `${url}/items/?brand=${brand}&number=${+n-1}`) prev
-  //-       b #{im}      
-  //-       a(href = `${url}/items/?brand=${brand}&number=${+n + 1}`) next 
+  
   div.block_images 
      for i,index in image                   
         img.all_image(

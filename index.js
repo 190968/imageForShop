@@ -117,9 +117,7 @@ app.post("/upload_image/uploadimage",(req,res)=>{
     var name = files.imageupload.name;
     var type = name.substr(name.indexOf('.'),20);
     console.log(model + number + type);
-
     var newpath = path.join( __dirname,'items',brand,model + number + type);
-
     fs.copyFile(oldpath, newpath, function (err) {   
       if (err) {
         res.send(`<h1>${err}</h1>`)
@@ -127,13 +125,10 @@ app.post("/upload_image/uploadimage",(req,res)=>{
         res.redirect("/");
       }     
     })
-
   });
-
 });
 
 // Rename folder
-
 app.get("/rename",(req,res)=>{
   let name = req.query.name;
   let last_name = req.query.last_name;
@@ -151,7 +146,7 @@ const uri = "mongodb+srv://alex:alex@cluster0alex-mvffj.gcp.mongodb.net/my?retry
 
 // write to mongodb
 app.post('/add_to_mongobase',(req,res)=>{
-    Mongoclient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true },function(err, db){
+  Mongoclient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true },function(err, db){
         if ( err ) throw err;
         var dbo = db.db("my");
           fs.readFile(path.join(__dirname,'base.json'),'utf8',(err,data)=>{
@@ -162,10 +157,9 @@ app.post('/add_to_mongobase',(req,res)=>{
                 console.log(`inserted: ${res.insertedCount}`);
             });
         });
-    });
-
-
+  });
 });
+
 //read questions from mongoDB
 
 app.get("/question",function(req,res){
@@ -227,16 +221,17 @@ app.get("/add_to_base_item",function(req,res){
 
 //add question to mongoDB
 
-app.get("/write_question",function(req,res){
- 
+app.get("/write_question",function(req,res){ 
   let name = req.query.name;
   let email = req.query.email;
   let question = req.query.question;
   Mongoclient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true },function(err, db){
     if ( err ) throw err;
     var dbo = db.db("my");
+    var today = new Date();
     var set = { 
-              "date": new Date,
+              "date": today.getFullYear() + "/" + (today.getMonth() + 1)
+               + "/" + today.getDate() + " " +today.getHours()+":"+today.getMinutes() ,
               "name": name,
               "email": email,
               "question": question,
@@ -248,6 +243,24 @@ app.get("/write_question",function(req,res){
   });
 });
 
+//delete question from mongodb
+
+app.get("/delete_question",function(req,res){
+ 
+ 
+  let email = req.query.email;
+  
+  Mongoclient.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true },function(err, db){
+    if ( err ) throw err;
+    var dbo = db.db("my");
+    
+    
+    dbo.collection("questions").deleteOne({"email" : email},(err)=>{
+      if ( err ) throw err;        
+      res.redirect("/question");
+    });           
+  });
+});
 
 //update item in base
 app.get("/write_to_base",function(req,res){
@@ -294,8 +307,7 @@ app.post("/uploadBase",(req,res)=>{
 
 
 // pug form  for upload base
-app.get("/upload_base",(req,res)=>{ 
-  
+app.get("/upload_base",(req,res)=>{  
   res.render('upload_base',{exit: app.locals.url} )
 });  
 
@@ -304,8 +316,7 @@ app.get("/upload_base",(req,res)=>{
 // Page with image
 app.get("/items",function(req,res) {
   let brand = req.query.brand;
-  let s =  fs.readdirSync((__dirname + `/items/${brand}`));
-  console.log(s);
+  let s =  fs.readdirSync((__dirname + `/items/${brand}`));  
   let num = req.query.number || 0;
   let n = num < 0 ? 0 : num > s.length-1 ? s.length-1 : num;
   let to_del = s[n]; 
@@ -319,16 +330,16 @@ app.get("/items",function(req,res) {
 
 //  request for send files to site
 app.all("/items/*", function(req,res,err) {
-    var path = req.path;
-    var url =  port == 5000 ? req.protocol +'://' + req.hostname +  `:${port}`:
-              req.protocol +'://' + req.hostname;
-  
-
-    var s = fs.existsSync(__dirname +  path + ".jpg");  
-    s ? 
-    res.sendFile(__dirname +  path + ".jpg")
-    :   
-    res.sendFile(__dirname +  path + ".webp"); 
+  let path = req.path;  
+  fs.existsSync(__dirname +  path + ".jpg")
+  ?  
+  res.sendFile(__dirname +  path + ".jpg")
+  :
+  fs.existsSync(__dirname +  path + ".webp")
+  ?
+  res.sendFile(__dirname +  path + ".webp") 
+  :
+  res.sendFile(__dirname + '/items/brands/salomon.png') 
    
 });
 
@@ -349,9 +360,8 @@ app.get("/delete",function(req,res){
 
 
 
-// page response base
-app.get("/base", function(req,res) { 
-  console.log("send data");   
+// Resive base from Heroky how file
+app.get("/base", function(req,res) {     
      fs.readFile("base.json", function(err,data) { 
          if (err) throw err;       
         res.send(data);

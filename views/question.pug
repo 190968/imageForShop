@@ -13,7 +13,7 @@ html
             form span {
                 text-align: center;
                 display: inline-block;
-                width: 20%;
+                width: 10%;
                 vertical-align: middle;
                 font-size: 18px;
             }
@@ -24,7 +24,10 @@ html
                  font: 600 2vw/50px 'Arial', sans-serif;
                
             }
-           
+            p span.date {
+                width: 10%;
+                text-align: right;
+            }
            
             #index,
             #save,
@@ -70,10 +73,9 @@ html
             }   
             .main_answer,
             .answer {
-                width: 20%;                
+                width: 25%;                
                 text-align: center;
-                display: inline-block;
-               
+                display: inline-block;               
                 font: 300 2vw/5vw 'Arial', sans-serif;
             }
             
@@ -89,6 +91,10 @@ html
                 margin-left: 0.2vw;
                 height: 4vw;
                 width: 4vw;
+                text-decoration: none;
+                display: inline-block;
+                border: none;
+                text-align: center;
                 box-sizing: border-box;
                 background-color: green;
                 color: #fff;
@@ -103,7 +109,7 @@ body
         a.add(title="add item" onclick='open_add()') &#10010;              
         div
             p.main               
-                span.main_answer date
+                span.date date
                 span.main_name name 
                 span.main_name email               
                 span.main_answer question
@@ -111,10 +117,10 @@ body
             p.one           
             for i,index in one               
                     form.one(action="/send_answer" method="get")
-                        span= i.date
+                        span.date= i.date
                         input#name(type="text" value=i.name name="name") 
                         input#name(type="text" value=i.email name="email")
                         input.answer(type="text" value=i.question name="question")                        
                         input.answer(type="text" name="answer" value=i.answer)
                         button.write(type="submit" title="answer") &#x270E;
-                        button.write(title="delete question")  &#10006;       
+                        a.write(href=`/delete_question?email=${i.email}` title="delete question")  &#10006;       
