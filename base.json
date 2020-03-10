@@ -47,7 +47,7 @@
    {
       "id":73,
       "cost":66,
-      "brand":"new_balance",
+      "brand":"new-balance",
       "model":"Fresh_Froam",
       "gender":"men",
       "size":"40,41,42,43,43.5",
@@ -58,7 +58,7 @@
    {
       "id":573,
       "cost":69,
-      "brand":"new_balance",
+      "brand":"new-balance",
       "model":"Laser_froam",
       "gender":"men",
       "size":"40,41,42,43,45",
@@ -727,7 +727,7 @@
    {
       "id":63,
       "cost":45,
-      "brand":"new_balance",
+      "brand":"new-balance",
       "model":"M490",
       "gender":"men",
       "size":"38,40,41,42,44",
@@ -738,7 +738,7 @@
    {
       "id":64,
       "cost":49,
-      "brand":"new_balance",
+      "brand":"new-balance",
       "model":"M490",
       "gender":"men",
       "size":"39,40,41,42,44",
@@ -749,7 +749,7 @@
    {
       "id":65,
       "cost":87,
-      "brand":"new_balance",
+      "brand":"new-balance",
       "model":"M460_v2",
       "gender":"men",
       "size":"39,40,41,42,43",
@@ -760,7 +760,7 @@
    {
       "id":66,
       "cost":85,
-      "brand":"new_balance",
+      "brand":"new-balance",
       "model":"M460_v2",
       "gender":"men",
       "size":"39,40,41,42,44",
@@ -771,7 +771,7 @@
    {
       "id":67,
       "cost":50,
-      "brand":"new_balance",
+      "brand":"new-balance",
       "model":"Cypher_v2",
       "gender":"men",
       "size":"40.5,41,42,43,44,45",
@@ -782,7 +782,7 @@
    {
       "id":68,
       "cost":52,
-      "brand":"new_balance",
+      "brand":"new-balance",
       "model":"Cypher_v3",
       "gender":"men",
       "size":"40,41,42,43",
@@ -793,7 +793,7 @@
    {
       "id":69,
       "cost":80,
-      "brand":"new_balance",
+      "brand":"new-balance",
       "model":"Aria",
       "gender":"men",
       "size":"39,40,41,42,44",
@@ -804,7 +804,7 @@
    {
       "id":70,
       "cost":85,
-      "brand":"new_balance",
+      "brand":"new-balance",
       "model":"Aria",
       "gender":"men",
       "size":"40.5,41,42",
@@ -815,7 +815,7 @@
    {
       "id":71,
       "cost":78,
-      "brand":"new_balance",
+      "brand":"new-balance",
       "model":"Aria",
       "gender":"men",
       "size":"40,41,42,43",
@@ -826,7 +826,7 @@
    {
       "id":72,
       "cost":65,
-      "brand":"new_balance",
+      "brand":"new-balance",
       "model":"Laser_Froam",
       "gender":"men",
       "size":"40.5,41,42,42.5",
@@ -837,7 +837,7 @@
    {
       "id":74,
       "cost":68,
-      "brand":"new_balance",
+      "brand":"new-balance",
       "model":"Laser_Froam",
       "gender":"men",
       "size":"43.5,44,45,45.5",
@@ -848,7 +848,7 @@
    {
       "id":75,
       "cost":61,
-      "brand":"new_balance",
+      "brand":"new-balance",
       "model":"Laser_Froam",
       "gender":"men",
       "size":"40,41,42,44",
@@ -1832,7 +1832,7 @@
    {
       "id":163,
       "cost":45,
-      "brand":"new_balance",
+      "brand":"new-balance",
       "model":"M490",
       "gender":"women",
       "size":"38,40,41,42",
@@ -1843,7 +1843,7 @@
    {
       "id":164,
       "cost":49,
-      "brand":"new_balance",
+      "brand":"new-balance",
       "model":"M490",
       "gender":"women",
       "size":"39,40,41,42",
@@ -1854,7 +1854,7 @@
    {
       "id":165,
       "cost":87,
-      "brand":"new_balance",
+      "brand":"new-balance",
       "model":"M460_v2",
       "gender":"women",
       "size":"39,40,41,42",
@@ -1865,7 +1865,7 @@
    {
       "id":166,
       "cost":85,
-      "brand":"new_balance",
+      "brand":"new-balance",
       "model":"M460_v2",
       "gender":"women",
       "size":"39,40,41,42",
@@ -1876,7 +1876,7 @@
    {
       "id":167,
       "cost":50,
-      "brand":"new_balance",
+      "brand":"new-balance",
       "model":"Cypher_v2",
       "gender":"women",
       "size":"40.5,41,42",
@@ -1887,7 +1887,7 @@
    {
       "id":168,
       "cost":52,
-      "brand":"new_balance",
+      "brand":"new-balance",
       "model":"Cypher_v3",
       "gender":"women",
       "size":"40,41,42,43",
@@ -1898,7 +1898,7 @@
    {
       "id":169,
       "cost":80,
-      "brand":"new_balance",
+      "brand":"new-balance",
       "model":"Aria",
       "gender":"women",
       "size":"39,40,41,42",
@@ -1909,7 +1909,7 @@
    {
       "id":170,
       "cost":85,
-      "brand":"new_balance",
+      "brand":"new-balance",
       "model":"Aria",
       "gender":"women",
       "size":"40.5,41,42",
@@ -1920,7 +1920,7 @@
    {
       "id":171,
       "cost":78,
-      "brand":"new_balance",
+      "brand":"new-balance",
       "model":"Aria",
       "gender":"women",
       "size":"40,41,42,43",
@@ -1931,7 +1931,7 @@
    {
       "id":172,
       "cost":65,
-      "brand":"new_balance",
+      "brand":"new-balance",
       "model":"Laser_Froam",
       "gender":"women",
       "size":"40.5,41,42,42.5",
@@ -1942,7 +1942,7 @@
    {
       "id":173,
       "cost":66,
-      "brand":"new_balance",
+      "brand":"new-balance",
       "model":"Laser_Froam",
       "gender":"women",
       "size":"40,41,42,43,43.5",
@@ -1953,7 +1953,7 @@
    {
       "id":174,
       "cost":68,
-      "brand":"new_balance",
+      "brand":"new-balance",
       "model":"Laser_Froam",
       "gender":"women",
       "size":"43.5,44,45,45.5",
@@ -1964,7 +1964,7 @@
    {
       "id":175,
       "cost":61,
-      "brand":"new_balance",
+      "brand":"new-balance",
       "model":"Laser_Froam",
       "gender":"women",
       "size":"40,41,42,44",
@@ -2550,7 +2550,7 @@
    {
       "id":229,
       "cost":21,
-      "brand":"new_balance",
+      "brand":"new-balance",
       "model":"Impact_T_Shirt",
       "gender":"women",
       "size":"8,10,12,14",
@@ -2627,7 +2627,7 @@
    {
       "id":236,
       "cost":78,
-      "brand":"new_balance",
+      "brand":"new-balance",
       "model":"seasonless_tee",
       "gender":"women",
       "size":"8,10,12",
@@ -2782,7 +2782,7 @@
    {
       "id":250,
       "cost":45,
-      "brand":"new_balance",
+      "brand":"new-balance",
       "model":"Balance_680v6",
       "gender":"boy",
       "size":"33,34,35,36",
@@ -2793,7 +2793,7 @@
    {
       "id":251,
       "cost":49,
-      "brand":"new_balance",
+      "brand":"new-balance",
       "model":"Balance_680v6",
       "gender":"boy",
       "size":"31,34,35,36,37",
@@ -2804,7 +2804,7 @@
    {
       "id":252,
       "cost":49,
-      "brand":"new_balance",
+      "brand":"new-balance",
       "model":"Balance_519v2",
       "gender":"boy",
       "size":"31,34,35,36,37",
@@ -2815,7 +2815,7 @@
    {
       "id":253,
       "cost":55,
-      "brand":"new_balance",
+      "brand":"new-balance",
       "model":"Balance_519v2",
       "gender":"boy",
       "size":"30,32,33,36,37",

@@ -330,7 +330,8 @@ app.get("/items",function(req,res) {
 
 //  request for send files to site
 app.all("/items/*", function(req,res,err) {
-  let path = req.path;  
+  let path = req.path;
+  console.log(path);  
   fs.existsSync(__dirname +  path + ".jpg")
   ?  
   res.sendFile(__dirname +  path + ".jpg")
@@ -339,6 +340,10 @@ app.all("/items/*", function(req,res,err) {
   ?
   res.sendFile(__dirname +  path + ".webp") 
   :
+  fs.existsSync(__dirname +  path)
+  ?
+  res.sendFile(__dirname +  path) 
+  : 
   res.sendFile(__dirname + '/items/brands/salomon.png') 
    
 });

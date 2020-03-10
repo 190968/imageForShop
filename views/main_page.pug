@@ -6,10 +6,10 @@ html
              body {
                     background-color: #ccc;
                 }
-            .a_folders,            
+            .rename_folders,            
             button  {
                 box-shadow: inset 0 0 5px 5px #ee82ee; 
-                margin:10px 2%;
+                margin:10px 1%;
                 width: 46%;               
                 border-radius: 50px;      
                 display: inline-block;
@@ -44,9 +44,9 @@ html
             button:hover {
                 border: 2px solid red;
             }
-            .a_folders {
+            .rename_folders {
                 width: 100%;
-                margin:10px 7%;
+                margin:10px 10%;
             }           
             #main_block {
                 margin: 5vw auto;
@@ -70,7 +70,7 @@ html
             .one { 
                
                 box-sizing: border-box;                   
-                width: 46.5%;
+                width: 48%;
                 margin: 1%;                
                 display: inline-block;
                 text-align: right;
@@ -200,15 +200,14 @@ html
            
             -var one = folders          
             div#one
-                for i,index in one
-                    
+                for i,index in one                    
                     p.one    
                         span.rename(
                             title="rename folder",                            
                             onclick=`rename_folder(${index})`
                             ) &#x270E;
                         a.a_base(href= `${url}/readBase/?brand=${i}`) ?                                          
-                        a.a_folders(href= `${url}/items/?brand=${i}`)= i                                    
+                        a.rename_folders(href= `${url}/items/?brand=${i}`)= i                                    
                         span.del(
                             title="delete folder",
                             onclick= `delete_folder(${index})` 
